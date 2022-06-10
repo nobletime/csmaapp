@@ -24,8 +24,8 @@
     }
   ],
   "lang": "en-US",
-  "start_url": "http://localhost:3030/public/",
-  "scope": "http://localhost:3030/public/",
+  "start_url": "/public/",
+  "scope": "/public/",
   "display": "standalone",
   "background_color": "white",
   "theme_color": "white"
