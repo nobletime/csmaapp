@@ -1,0 +1,26 @@
+<!doctype html>
+<html lang="en">
+
+<head>
+	<title>The Vin Report : Full Vehicle History Report </title>
+	<meta charset="utf-8">
+	<meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
+
+	<script>
+		let username  = localStorage.getItem("autocheck-username")
+
+		if (username) {
+			(username == "admin")? location.replace(`/onboarding`) : location.replace(`/users/${username}`)
+		} else {
+			location.replace(`/signin`)
+		}
+
+	</script>
+
+</head>
+
+<body>
+
+</body>
+
+</html>

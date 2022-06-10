@@ -1,0 +1,186 @@
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Autocheck User L</title>
+    <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap@4.3.1/dist/css/bootstrap.min.css"
+        integrity="sha384-ggOyR0iXCbMQv3Xipma34MD+dH/1fQ784/j6cY/iJTQUOhcWr7x9JvoRxT2MZw1T" crossorigin="anonymous">
+    <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.5.1/jquery.min.js"></script>
+    <script src="https://cdn.jsdelivr.net/npm/popper.js@1.14.7/dist/umd/popper.min.js"
+        integrity="sha384-UO2eT0CpHqdSJQ6hJty5KVphtPhzWj9WO1clHTMGa3JDZwrnQq4sF86dIHNDz0W1"
+        crossorigin="anonymous"></script>
+    <script src="https://cdn.jsdelivr.net/npm/bootstrap@4.3.1/dist/js/bootstrap.min.js"
+        integrity="sha384-JjSmVgyd0p3pXB1rRibZUAYoIIy6OrQ6VrjIEaFf/nJGzIxFDsf4x0xIM+B07jRM"
+        crossorigin="anonymous"></script>
+
+    <!-- EDITOR TABLE -->
+    <link rel="stylesheet" type="text/css" href="https://cdn.datatables.net/1.11.0/css/jquery.dataTables.min.css">
+    <link rel="stylesheet" type="text/css"
+        href="https://cdn.datatables.net/buttons/2.0.0/css/buttons.dataTables.min.css">
+    <link rel="stylesheet" type="text/css" href="https://cdn.datatables.net/select/1.3.3/css/select.dataTables.min.css">
+    <link rel="stylesheet" type="text/css"
+        href="https://cdn.datatables.net/datetime/1.1.1/css/dataTables.dateTime.min.css">
+    <link rel="stylesheet" type="text/css" href="/public/css/editor.dataTables.min.css">
+
+    <script type="text/javascript" language="javascript"
+        src="https://cdn.datatables.net/1.11.0/js/jquery.dataTables.min.js"></script>
+    <script type="text/javascript" language="javascript"
+        src="https://cdn.datatables.net/buttons/2.0.0/js/dataTables.buttons.min.js"></script>
+    <script type="text/javascript" language="javascript"
+        src="https://cdn.datatables.net/select/1.3.3/js/dataTables.select.min.js"></script>
+    <script type="text/javascript" language="javascript"
+        src="https://cdn.datatables.net/keytable/2.6.4/js/dataTables.keyTable.min.js"></script>
+    <script type="text/javascript" language="javascript"
+        src="https://cdn.datatables.net/datetime/1.1.1/js/dataTables.dateTime.min.js"></script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/moment.js/2.18.1/moment.min.js"></script>
+    <script
+        src="https://cdnjs.cloudflare.com/ajax/libs/moment-timezone/0.5.13/moment-timezone-with-data-2012-2022.min.js"></script>
+
+    <script type="text/javascript" language="javascript" src="/public/js/dataTables.editor.min.js"></script>
+
+    <script src="/public/js/users-list-table.js"></script>
+
+<script>
+function addPromoCode(){
+fetch(`/addpromo?promo=${document.getElementById("promocode").value}`)
+  .then(response => response.json())
+  .then(data => {
+      document.getElementById("message").innerHTML = data
+  });
+    
+}
+
+</script>
+
+
+    <style>
+        #div_lastupdated {
+            padding-top: 20px;
+            margin: auto;
+            width: 50%;
+        }
+
+        #edit_table {
+            font-family: Arial, Helvetica, sans-serif;
+            border-collapse: collapse;
+            width: 50%;
+            margin: auto;
+        }
+
+        #edit_table td,
+        #edit_table th {
+            border: 1px solid #ddd;
+            padding: 8px;
+        }
+
+        #edit_table tr:nth-child(even) {
+            background-color: #f2f2f2;
+        }
+
+        #edit_table tr:hover {
+            background-color: #ddd;
+        }
+
+        #edit_table td.editable:hover {
+            cursor: pointer;
+            background-color: pink;
+        }
+
+        #edit_table th {
+            padding-top: 12px;
+            padding-bottom: 12px;
+            text-align: left;
+            background-color: #04AA6D;
+            color: white;
+        }
+
+        #promo-table_filter{
+            display: none;
+        }
+    </style>
+</head>
+
+<body>
+
+    <div style="display:flex; justify-content:flex-end;margin-top:20px;margin-right:30px">
+        <!-- <div style="margin-right: 10px;">
+            <button type="button" class="btn btn-primary" onclick="getSelectedResults()">Export Selected</button>
+        </div> -->
+        <!-- <div style="margin-right: 20px;">            
+            <input type="text" class="form-control" id="promocode" name="promocode" placeholder="Promo code">
+        </div>
+        <div style="margin-right:30px">
+            <button class="btn btn-primary" onclick="addPromoCode()">Add Promo code</button>
+        </div> -->
+        <div>
+            <a href="/signout"> <button type="button" class="btn btn-primary">Sign out</button></a>
+        </div>
+    </div>
+
+    <div style="margin:20px;margin-top:20px">
+
+        <table id="autocheck-user-table" class="display" cellspacing="0" width="100%">
+            <thead>
+                <tr>   
+                    <th>Username</th>
+                     <th>Email</th>
+                    <th>Type</th>
+                    <th>Credits</th>
+                   <th>Created date</th>
+                    <th>Active</th> 
+                    <th>Promocode</th>
+                </tr>
+            </thead>
+        </table>
+
+
+    </div>
+
+    
+    <div style="margin:20px;margin-top:200px; width:20%">
+
+        <table id="promo-table" class="display" cellspacing="0">
+            <thead>
+                <tr>   
+                    <th>Promocode</th>
+                    <th>Credits</th>
+                </tr>
+            </thead>
+        </table>
+
+
+    </div>
+
+    <div style="text-align: center;">
+        <h3 id="message" >
+            <%= message %>
+            
+                </h3>
+    </div>
+
+
+
+
+
+
+
+
+
+
+
+    <!-- <div id="div_lastupdated" style="font-size:18px">
+Last updated: 
+<span  id="last_updated">
+</span>
+
+<button style="float:right;font-size:22px;padding:10px" >Save</button>
+<a href="/admin">
+    <button style="margin-right:30px;float:right;font-size:22px;padding:10px">Cancel</button>
+</a>
+
+</div> -->
+
+</body>
+
+</html>

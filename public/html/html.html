@@ -1,0 +1,121 @@
+
+							<div id="credits" class="login-wrap p-4 p-md-5" style="display: none;">
+
+								<!-- <div class="d-flex">
+									<div class="w-100">
+										<h3 class="mb-4">AutoCheck Report </h3>
+									</div>
+								</div> -->
+
+
+								<div style="text-align: right; font-weight: bold;">
+									My Credits : <span class="mycredits">
+										<%= credits %>
+									</span>
+								</div>
+
+
+								<form id="credits-form" action="/addcredits?username=<%=username %>" class="signin-form"
+									method="post">
+									<div class="form-group mt-3 " style="margin-top:40px">
+										<label for="credits_add" class="label-login">Credits to add</label>
+										<input type="number" max="300" value="10" class="form-control"
+											id="credits_add" name="credits_add" placeholder="Credits to add" required>
+									</div>
+									<div>
+										$1 per credit and 5 credits per report
+									</div>
+
+									<input id="verify_payment" class="form-control" type="hidden" name="verify_payment"
+										value="<%= verifypayment%>">
+
+									<div class="form-group" id="paypal" style="margin-top:50px">
+										<!-- <button type="submit" class="form-control btn btn-primary rounded submit px-3">Add
+										Credits</button> -->
+									</div>
+
+
+								</form>
+
+								<div id="credits_message" style="font-weight:nold; color:red">
+									<%= message %>
+								</div>
+								<!-- <p class="text-center">Already a member? <a data-toggle="tab" href="#" onclick="showSignIn()">Sign In</a></p> -->
+
+								<input id="username" type="hidden" value="<%=username %>">
+							</div>
+
+							<div id="settings" class="login-wrap p-4 p-md-5" style="display:none;">
+								<form action="/password-reset-internal" class="signin-form" method="post"
+									onsubmit="return validateConfirmPassword()">
+									<div class="form-group mt-3">
+										<label class="label-login" for="username">Username</label>
+										<input type="text" class="form-control" id="username" name="username" readonly
+											value="<%= username %>" required>
+									</div>
+									<div class="form-group">
+										<input type="password" class="form-control" id="currentpassword"
+											name="currentpassword" required>
+										<label class="form-control-placeholder" for="currentpassword">Current
+											Password</label>
+									</div>
+
+									<div class="form-group">
+										<input type="password" class="form-control" id="newpassword" name="newpassword"
+											pattern="^(?=.*[a-z])(?=.*[A-Z])(?=.*\d)[a-zA-Z\d]{8,}$|^(?=.*[A-Za-z])(?=.*\d)(?=.*[$@$!%*#?&])[A-Za-z\d$@$!%*#?&]{8,}$"
+											title="Minimum eight characters, at least one uppercase letter, one lowercase letter and one number"
+											required>
+										<label class="form-control-placeholder" for="newpassword">New Password</label>
+										<span toggle="#newpassword"
+											class="fa fa-fw fa-eye field-icon toggle-password"></span>
+									</div>
+									<div class="form-group">
+										<input type="password" class="form-control" id="confirm_password"
+											name="confirm_password" required>
+										<label class="form-control-placeholder" for="confirm_password">Confirm New
+											Password</label>
+									</div>
+
+									<div class="form-group">
+										<button type="submit"
+											class="form-control btn btn-primary rounded submit px-3">Reset
+											Password</button>
+									</div>
+								</form>
+
+								<div id="note" style="font-weight:nold; color:red"></div>
+							</div>
+
+							<div id="support" class="login-wrap p-4 p-md-5" style="display:none;">
+
+								<!-- <div class="d-flex">
+									<div class="w-100">
+										<h3 class="mb-4">AutoCheck Report </h3>
+									</div>
+								</div> -->
+
+								<div style="display: flex;justify-content: right;font-weight: bold;">
+
+								</div>
+
+								<!-- <form action="/autocheck?username=<%=username %>" class="signin-form" method="post"> -->
+								<div class="form-group mt-3 " style="margin-top:40px">
+									<label class="label-login" for="vin">Contact support:</label>
+
+									support@thevinreport.com
+
+								</div>
+
+								<div class="form-group">
+									<a href='mailto:support@thevinreport.com?subject=Contact from user <%=username%>'> <button type="submit" class="form-control btn btn-primary rounded submit px-3">Email Support</button>
+									</a>
+									</div>
+								<!-- </form> -->
+								<div>
+									
+								</div>
+								<div id="support_message" style="font-weight:nold; color:red">
+								
+								</div>
+								<!-- <p class="text-center">Already a member? <a data-toggle="tab" href="#" onclick="showSignIn()">Sign In</a></p> -->
+							</div>
