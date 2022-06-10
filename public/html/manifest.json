@@ -24,7 +24,8 @@
     }
   ],
   "lang": "en-US",
-  "start_url": "/",
+  "start_url": "/public/html/",
+  "scope": "/public/html/",
   "display": "standalone",
   "background_color": "white",
   "theme_color": "white"
