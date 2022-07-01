@@ -100,7 +100,7 @@ const med_json = {
             "elements": [
                 {
                     "type": "comment",
-                    "name": "med",
+                    "name": "comment",
                     "title": "List  medication changes: ",
                     "hideNumber": true
                 }
@@ -118,22 +118,41 @@ const inspire_json = {
     "completedHtml": "<h3>Your answers were saved! </h3>",
     "completedBeforeHtml": "<h3>Our records show that you have already completed DSA.</h3>",
     "pages": [
-        {
-            "name": "page1",
-            "elements": [
-                {
-                    "type": "comment",
-                    "name": "inspire",
-                    "title": "List  inspire changes: ",
-                    "hideNumber": true
-                }
-            ]
-        }
+     {
+      "name": "page1",
+      "elements": [
+       {
+        "type": "dropdown",
+        "name": "inspire_level",
+        "title": "Select inspire changes:",
+        "hideNumber": true,
+        "isRequired": true,
+        "choices": [
+         {
+          "value": "0",
+          "text": "0 / off / stopped"
+         },
+         "1",
+         "2",
+         "3",
+         "4",
+         "5",
+         "6",
+         "7",
+         "8",
+         "9",
+         "10",
+         "11"
+        ]
+       }
+      ]
+     }
     ],
     "navigateToUrlOnCondition": [
-        {}
-    ]
-}
+     {}
+    ],
+    "completeText": "Submit"
+   }
 
 
 const appliance_json = {
@@ -146,7 +165,7 @@ const appliance_json = {
             "elements": [
                 {
                     "type": "comment",
-                    "name": "appliance",
+                    "name": "comment",
                     "title": "Type in the change to your Oral Appliance Therapy: ",
                     "hideNumber": true
                 }
@@ -168,7 +187,7 @@ const pap_json = {
             "elements": [
                 {
                     "type": "comment",
-                    "name": "pap",
+                    "name": "comment",
                     "title": "Type in the change to your PAP treatmen: ",
                     "hideNumber": true
                 }

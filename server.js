@@ -13,7 +13,7 @@ const bcrypt = require("bcryptjs");
 const { randomUUID } = require("crypto")
 
 const mdb = require('./mod/db.js');
-const mysql = require('./mod/mysql.js');
+//const mysql = require('./mod/mysql.js');
 const { send365Email, sendGmail } = require("./mod/email");
 //const { getStaticCookie, asyncGetCookie, getCookie } = require('./mod/tokenConfig');
 
@@ -108,9 +108,9 @@ app.get('/users/:username', async (req, res) => {
   if (found.active && found.active == 'No') {
     req.flash('message', "Your account has been terminated");
     return res.redirect('/signin');
-  } 
+  }
 
-  res.render('index', { email: found.email, credits: found.credits, username: user, verifypayment: "none", message: message, CLIENT_ID : CLIENT_ID });
+  res.render('index', { email: found.email, credits: found.credits, username: user, verifypayment: "none", message: message, CLIENT_ID: CLIENT_ID });
 });
 
 app.post('/addcredits', async (req, res) => {
@@ -141,7 +141,7 @@ app.post('/addcredits', async (req, res) => {
 
 
 app.get('/', (req, res) => {
-return res.sendFile(path.join(__dirname, "public", "html", "index.html"))
+  return res.sendFile(path.join(__dirname, "public", "html", "index.html"))
 
 });
 
@@ -166,14 +166,14 @@ app.post('/autocheck', isAuthenticated, async (req, res) => {
 
   if (found.active && found.active == 'No') {
     return res.status(403).send("Your account has been terminated");
- //   req.flash('message', "Your account has been terminated");
-  //  return res.redirect('/signout');
+    //   req.flash('message', "Your account has been terminated");
+    //  return res.redirect('/signout');
   }
 
   if (found.credits - 5 < 0) {
-   return  res.status(405).send( "Not Enough Credits. Please purchase credits!");
- //   req.flash('message', `Not Enough Credits, Please purchase credits`);
-//    return res.redirect(`/users/${username}`);
+    return res.status(405).send("Not Enough Credits. Please purchase credits!");
+    //   req.flash('message', `Not Enough Credits, Please purchase credits`);
+    //    return res.redirect(`/users/${username}`);
   }
 
   const auth = await mysql.readToken();
@@ -206,10 +206,10 @@ app.post('/autocheck', isAuthenticated, async (req, res) => {
 
       //res.redirect('/autocheck')
 
-    //  res.send(pagedata);
+      //  res.send(pagedata);
 
-    const newcredits = Number(found.credits) - 5;
-    res.status(200).send(JSON.stringify({credits:newcredits, pagedata:pagedata, vin: vin}));
+      const newcredits = Number(found.credits) - 5;
+      res.status(200).send(JSON.stringify({ credits: newcredits, pagedata: pagedata, vin: vin }));
       // const result = await mdb.updateOne("users", { username: username }, { credits: found.credits - 5 })
       const result = await mysql.updateCreditForUser(username, newcredits);
 
@@ -219,8 +219,8 @@ app.post('/autocheck', isAuthenticated, async (req, res) => {
           content: pagedata
         }
       ]
-     
-     return sendGmail(email, `The VIN Report for ${vin}`, `  The Vin Report for ${vin} is attached.`, attachments)
+
+      return sendGmail(email, `The VIN Report for ${vin}`, `  The Vin Report for ${vin} is attached.`, attachments)
 
     } else {
 
@@ -321,7 +321,7 @@ app.post('/promo-list', isAuthenticated, async (req, res) => {
       let obj = data[0];
       // obj.clinic_id = new Date().getTime().toString();
       //   result = await mdb.save("promocodes", obj);
-      obj.promocode =   obj.promocode.toLowerCase()
+      obj.promocode = obj.promocode.toLowerCase()
       result = await mysql.insertPromo(obj.promocode, obj.credits);
       templateTData.data = [obj];
       obj['DT_RowId'] = obj.promocode.toString();
@@ -341,7 +341,7 @@ app.post('/promo-list', isAuthenticated, async (req, res) => {
       //query = { 'id': firstKey};
 
       // result = await mdb.updateOne("users", query, datatmp);
-      result = await mysql.updatePromo(firstKey,datatmp.credits, datatmp.promocode);
+      result = await mysql.updatePromo(firstKey, datatmp.credits, datatmp.promocode);
 
       datatmp['DT_RowId'] = firstKey;
       templateTData.data = [datatmp];
@@ -372,6 +372,9 @@ app.post('/signin', passport.authenticate('local', {
     res.redirect(`/users/${req.body.username.toLowerCase()}`);
   }
 });
+
+
+
 
 
 app.get('/signin', async (req, res) => {
@@ -434,13 +437,13 @@ app.get('/signout', function (req, res, next) {
   });
 });
 
-app.get('/password-reset', async (req, res)=> {
-  if (!req.query.username && !req.query.token){
+app.get('/password-reset', async (req, res) => {
+  if (!req.query.username && !req.query.token) {
     return res.redirect('/signin');
   }
   const user = req.query.username.toLowerCase();
   const token = req.query.token;
-  
+
 
   const found = await mysql.findByUsername(user);
 
@@ -449,22 +452,22 @@ app.get('/password-reset', async (req, res)=> {
     return res.redirect('/signin');
   }
 
-  if (found.token != token ) {
+  if (found.token != token) {
     req.flash('message', "Wrong token likely link is expired, please contact support");
     return res.redirect('/signin');
   }
 
-  return  res.render('password-reset', { username: user, message: "" })
+  return res.render('password-reset', { username: user, message: "" })
 })
 
 app.post('/password-reset', async (req, res) => {
   const user = req.body.username.toLowerCase();
   const found = await mysql.findByUsername(user);
 
-  const result = await mysql.updateUser( found.id,{'token' : randomUUID(),  'password': bcrypt.hashSync(req.body.newpassword, 12)})
-  
-req.flash('message', "Your password has been successfully reset");
-return res.redirect('/signin');
+  const result = await mysql.updateUser(found.id, { 'token': randomUUID(), 'password': bcrypt.hashSync(req.body.newpassword, 12) })
+
+  req.flash('message', "Your password has been successfully reset");
+  return res.redirect('/signin');
 
 })
 
@@ -474,36 +477,51 @@ app.post('/password-reset-internal', isAuthenticated, async (req, res) => {
   const currentpassword = req.body.currentpassword;
   const found = await mysql.findByUsername(user);
 
-  
-  if (!await bcrypt.compare(currentpassword, found.password)){
+
+  if (!await bcrypt.compare(currentpassword, found.password)) {
     req.flash('message', "Your current password didn't match, if you forgot your password, try resetting on sign-in page");
     return res.redirect(`/users/${user}`);
   }
 
-  const result = await mysql.updateUser( found.id,{'token' : randomUUID(),  'password': bcrypt.hashSync(req.body.newpassword, 12)})
-  
-req.flash('message', "Your password has been successfully reset");
-return res.redirect(`/users/${user}`);
+  const result = await mysql.updateUser(found.id, { 'token': randomUUID(), 'password': bcrypt.hashSync(req.body.newpassword, 12) })
+
+  req.flash('message', "Your password has been successfully reset");
+  return res.redirect(`/users/${user}`);
 
 })
 
+app.post('/forgot-password', async (req, res) => {
 
-app.post('/forgot-password', async (req, res)=> {
-  
   const user = req.body.username.toLowerCase();
   const found = await mysql.findByUsername(user);
 
   if (!found) {
-   req.flash('message', `Username '${user}' does not exist` );
-   res.redirect('/signin');
+    req.flash('message', `Username '${user}' does not exist`);
+    res.redirect('/signin');
   }
 
-  req.flash('message', "An email with link to reset your password was to the email on the account" );
+  req.flash('message', "An email with link to reset your password was to the email on the account");
   res.redirect('/signin');
 
-const resetlink = `${req.protocol}://${req.get('host')}/password-reset?username=${user}&token=${found.token}`
-   sendGmail(found.email, `The Vin Report Password Reset`, ` <b>Your password reset link:</b><br/><br/> ${resetlink}`, null)
+  const resetlink = `${req.protocol}://${req.get('host')}/password-reset?username=${user}&token=${found.token}`
+  sendGmail(found.email, `The Vin Report Password Reset`, ` <b>Your password reset link:</b><br/><br/> ${resetlink}`, null)
 });
+
+
+app.post('/save-comment', async (req, res) => {
+  const save = await mdb.save("patient_comment", req.body);
+  res.send("saved")
+
+  // if (!found) {
+  //   req.flash('message', `Username '${user}' does not exist`);
+  //   res.redirect('/signin');
+  // }
+
+  //req.flash('message', "An email with link to reset your password was to the email on the account");
+  //res.redirect('/signin');
+
+});
+
 
 
 function https_request(httpsVar, options, cb) {

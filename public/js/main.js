@@ -2,25 +2,21 @@
 
 $(() => {
 
-    if ('serviceWorker' in navigator) {
-      navigator.serviceWorker
-               .register('/public/sw.js');
-    }
-
-
-  let reportPage = document.getElementById("reportpage");
-  if (reportPage) {
-    let recipientemail = localStorage.getItem("autocheck-email")
-    if (recipientemail) {
-      document.getElementById("email").value = recipientemail;
-    }
-
-  } else { // login page
-    if (document.getElementById("remember").checked) {
-			document.getElementById("username").value = localStorage.getItem("autocheck-username") || ""
-			document.getElementById("password").value = localStorage.getItem("autocheck-password") || ""
-		}
+  if ('serviceWorker' in navigator) {
+    navigator.serviceWorker
+      .register('/public/sw.js');
   }
+
+  // GETY NAV BAR
+
+  fetch("/public/html/slider.html")
+    .then(response => {
+      status = response.status
+      response.text().then(re => {
+        document.getElementById("left-slider").innerHTML = re;
+      })
+    })
+
 
 
   $(".toggle-password").click(function () {
@@ -38,8 +34,8 @@ $(() => {
 
 function saveUsername() {
   if (document.getElementById("remember").checked) {
-  localStorage.setItem("autocheck-username", document.getElementById("username").value.toLowerCase())
-  localStorage.setItem("autocheck-password", document.getElementById("password").value)
+    localStorage.setItem("autocheck-username", document.getElementById("username").value.toLowerCase())
+    localStorage.setItem("autocheck-password", document.getElementById("password").value)
   }
   return true;
 }
@@ -91,6 +87,15 @@ function showReport() {
   w3_close();
 }
 
+function showDSA() {
+  $('#report').hide();
+  $('#credits').hide();
+  $('#settings').hide();
+  $('#support').hide();
+  document.getElementById("pageTitle").innerHTML = "AutoCheck Report"
+  w3_close();
+}
+
 function showCredits() {
   $('#report').hide();
   $('#credits').show();
@@ -122,6 +127,7 @@ function showSupport() {
 function w3_open() {
   //	document.getElementById("mySidebar").style.display = "block";
   $("#mySidebar").show("slide", { direction: "left" }, 300);
+
 }
 
 
@@ -130,7 +136,7 @@ function w3_close() {
   $("#mySidebar").hide("slide", { direction: "left" }, 300);
 }
 
-function viewReport(){
+function viewReport() {
   let params = [
     'toolbar=no',
     'location=no',
@@ -176,13 +182,13 @@ function getreport() {
     }).then((response) => {
       status = response.status
       response.text().then(re => {
-if (status ==403) {
-  window.location.replace("/signin");
+        if (status == 403) {
+          window.location.replace("/signin");
 
-} else if (status == 405) {
-  document.getElementById('report_message').innerHTML = re
-  win.close()
-} else if (status == 302) {
+        } else if (status == 405) {
+          document.getElementById('report_message').innerHTML = re
+          win.close()
+        } else if (status == 302) {
           document.getElementById('report_message').innerHTML = re
           win.close()
         } else if (status == 200) {
@@ -195,19 +201,19 @@ if (status ==403) {
 
           const btnDownload = `<div style="margin-top:40px; margin-bottom:40px;">  <button onclick="viewReport()" style="background:darkblue !important" class="form-control btn btn-primary rounded px-3"   onclick="getreport()"><b>Download Report: ${data.vin}</b></button></div>`;
 
-          document.getElementById("report_download").innerHTML =`${btnDownload}`;
+          document.getElementById("report_download").innerHTML = `${btnDownload}`;
 
-          document.getElementById("reportdata").innerHTML =data.pagedata;
+          document.getElementById("reportdata").innerHTML = data.pagedata;
           win.document.body.innerHTML = data.pagedata;
-         // win.moveTo(0, 0)
+          // win.moveTo(0, 0)
 
 
         } else {
-          document.getElementById('report_message').innerHTML  = "Server error, please contact support"
+          document.getElementById('report_message').innerHTML = "Server error, please contact support"
           win.close()
         }
 
-        
+
         // console.log(re);
       });
 

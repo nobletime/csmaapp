@@ -6,3 +6,8 @@
 .sd-btn{
     padding:calc(2 * var(--base-unit, 8px)) calc(6 * var(--base-unit, 8px)) !important
 }
+
+
+.back-btn{
+    padding:5px; 
+}
