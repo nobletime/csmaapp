@@ -130,6 +130,9 @@ function w3_open() {
 
 }
 
+function savePatId(){
+  localStorage.setItem("patient-app-id", document.getElementById("patient_app_id").value)
+}
 
 function w3_close() {
   //  document.getElementById("mySidebar").style.display = "none";			

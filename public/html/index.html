@@ -44,6 +44,7 @@
 
 	<script src="/public/js/main.js"></script>
 
+
 </head>
 
 <body class="fullscreen">
@@ -70,7 +71,7 @@
 					<button class="w3-button w3-teal w3-xlarge" onclick="w3_open()"><span
 							style="font-size:38px">&#9776;</span></button>
 
-					<h3 class="mb-4" style="display:inline; color:white;" id="pageTitle">Therapy Tracker</h3>
+					<h3 class="mb-4" style="display:inline; color:white;" id="pageTitle">Home</h3>
 
 				</div>
 				<!-- <div class="img" style="background-image: url(/public/images/bg-1.jpg);"></div> -->
@@ -85,18 +86,34 @@
 				<div class="login-wrap p-4 p-md-5 justify-content-center" onclick="w3_close()">
 
 					<div>
-						<a href="/public/html/dsa.html">
+						<input type="text" id="patient_app_id" value="" placeholder="APP ID"
+							style="width:100%;margin-bottom:20px">
+
+
+
+					</div>
+
+					<div>
+						<a href="/public/html/dsa.html" onclick="savePatId()" >
 							<button class="btn btn-light rounded my-2">
-								<img src="/public/images/therapy/dsa.png" width="100" height="110" alt="back"
-									style="position:relative;left:-25px" /> Daily Sleep Assessment
+								<img src="/public/images/therapy/dsa.png" width="100" height="110"
+									alt="back" style="position:relative;left:-25px" /> Daily Sleep Assessment
 							</button></a>
 					</div>
 
 					<div>
-						<a href="/public/html/therapy-tracker.html">
+						<a href="/public/html/therapy-tracker.html" onclick="savePatId()">
 							<button class="btn btn-light rounded my-2">
-								<img src="/public/images/therapy/therapy-tracker.jpg" width="100" height="110"
-									alt="back" style="position:relative;left:-45px" /> Therapy Tracker
+								<img src="/public/images/therapy/therapy-tracker.jpg" onclick="savePatId()" width="100"
+									height="110" alt="back" style="position:relative;left:-45px" /> Therapy Tracker
+							</button></a>
+					</div>
+
+					<div>
+						<a href="/public/html/general-notes.html" onclick="savePatId()">
+							<button class="btn btn-light rounded my-2">
+								<img src="/public/images/therapy/general-notes.jpg" onclick="savePatId()" width="100"
+									height="110" alt="back" style="position:relative;left:-45px" /> General Notes
 							</button></a>
 					</div>
 
@@ -149,7 +166,11 @@
 
 
 
+	<script>
 
+		document.getElementById("patient_app_id").value = localStorage.getItem("patient-app-id") || ""
+
+	</script>
 
 </body>
 

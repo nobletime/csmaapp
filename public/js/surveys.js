@@ -112,6 +112,27 @@ const med_json = {
     ]
 }
 
+const general_json = {
+    "logoPosition": "right",
+    "completedHtml": "<h3>Your answers were saved! </h3>",
+    "completedBeforeHtml": "<h3>Our records show that you have already completed DSA.</h3>",
+    "pages": [
+        {
+            "name": "page1",
+            "elements": [
+                {
+                    "type": "comment",
+                    "name": "comment",
+                    "title": "Leave notes about your condition: ",
+                    "hideNumber": true
+                }
+            ]
+        }
+    ],
+    "navigateToUrlOnCondition": [
+        {}
+    ]
+}
 
 const inspire_json = {
     "logoPosition": "right",

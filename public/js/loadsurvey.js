@@ -25,6 +25,9 @@ $(() => {
         case "med":
             json = med_json
             break;
+        case "general":
+            json = general_json
+            break;
         case "inspire":
             json = inspire_json
             break;
@@ -48,16 +51,16 @@ $(() => {
         .add(function (sender) {
 
             const surveydata = {
-                clinic_id  : "CSMA",
-                patient_app_id : "RS2VA7",     
+                clinic_id: "CSMA",
+                patient_app_id: localStorage.getItem("patient-app-id") || "RS2VA7",
                 date: new Date(),
                 type: document.querySelector(".surveyElement").id,
                 data: sender.data
             }
 
 
-         //   surveydata.clinic_name = cname
-        //    surveydata.date = new Date(moment(new Date()).format('MM/DD/YYYY'));
+            //   surveydata.clinic_name = cname
+            //    surveydata.date = new Date(moment(new Date()).format('MM/DD/YYYY'));
 
             fetch("/save-comment", {
                 method: "POST",
