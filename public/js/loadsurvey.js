@@ -39,21 +39,25 @@ $(() => {
             break;
 
         default:
-
-
     }
 
 
     window.survey = new Survey.Model(json);
+    (new Date().getHours() < 14 || document.querySelector(".surveyElement").id == "dsa") ? 
+            window.survey.setValue("whichnight", "last_night") : window.survey.setValue("whichnight", "tonight")
 
     survey
         .onComplete
         .add(function (sender) {
 
+            const plot_date = (sender.data.whichnight == "last_night") ?  new Date().setHours(0,0,0,0)-1
+                                    : new Date().setHours(23,59,59,999);
+
             const surveydata = {
                 clinic_id: "CSMA",
                 patient_app_id: localStorage.getItem("patient-app-id") || "RS2VA7",
                 date: new Date(),
+                plot_date: plot_date,
                 type: document.querySelector(".surveyElement").id,
                 data: sender.data
             }

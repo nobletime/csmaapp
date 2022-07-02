@@ -85,9 +85,11 @@ const dsa_json = {
             ]
         }
     ],
+    "navigateToUrl": "/",
     "navigateToUrlOnCondition": [
         {}
-    ]
+    ],
+    "completeText": "Submit"
 }
 
 const med_json = {
@@ -99,17 +101,39 @@ const med_json = {
             "name": "page1",
             "elements": [
                 {
+                    "type": "radiogroup",
+                    "name": "whichnight",
+                    "startWithNewLine": false,
+                    "title": "Regarding: ",
+                    "hideNumber": true,
+                    "isRequired": true,
+                    "choices": [
+                        {
+                            "value": "last_night",
+                            "text": "Last night"
+                        },
+                        {
+                            "value": "tonight",
+                            "text": "Tonight"
+                        }
+                    ],
+                    "colCount": 2
+                },
+                {
                     "type": "comment",
                     "name": "comment",
                     "title": "List  medication changes: ",
-                    "hideNumber": true
+                    "hideNumber": true,
+                    "isRequired": true
                 }
             ]
         }
     ],
+    "navigateToUrl": "/",
     "navigateToUrlOnCondition": [
         {}
-    ]
+    ],
+    "completeText": "Submit"
 }
 
 const general_json = {
@@ -121,17 +145,39 @@ const general_json = {
             "name": "page1",
             "elements": [
                 {
+                    "type": "radiogroup",
+                    "name": "whichnight",
+                    "startWithNewLine": false,
+                    "title": "Regarding: ",
+                    "hideNumber": true,
+                    "isRequired": true,
+                    "choices": [
+                        {
+                            "value": "last_night",
+                            "text": "Last night"
+                        },
+                        {
+                            "value": "tonight",
+                            "text": "Tonight"
+                        }
+                    ],
+                    "colCount": 2
+                },
+                {
                     "type": "comment",
                     "name": "comment",
                     "title": "Leave notes about your condition: ",
-                    "hideNumber": true
+                    "hideNumber": true,
+                    "isRequired": true
                 }
             ]
         }
     ],
+    "navigateToUrl": "/",
     "navigateToUrlOnCondition": [
         {}
-    ]
+    ],
+    "completeText": "Submit"
 }
 
 const inspire_json = {
@@ -139,42 +185,61 @@ const inspire_json = {
     "completedHtml": "<h3>Your answers were saved! </h3>",
     "completedBeforeHtml": "<h3>Our records show that you have already completed DSA.</h3>",
     "pages": [
-     {
-      "name": "page1",
-      "elements": [
-       {
-        "type": "dropdown",
-        "name": "inspire_level",
-        "title": "Select inspire changes:",
-        "hideNumber": true,
-        "isRequired": true,
-        "choices": [
-         {
-          "value": "0",
-          "text": "0 / off / stopped"
-         },
-         "1",
-         "2",
-         "3",
-         "4",
-         "5",
-         "6",
-         "7",
-         "8",
-         "9",
-         "10",
-         "11"
-        ]
-       }
-      ]
-     }
+        {
+            "name": "page1",
+            "elements": [
+                {
+                    "type": "radiogroup",
+                    "name": "whichnight",
+                    "startWithNewLine": false,
+                    "title": "Regarding: ",
+                    "hideNumber": true,
+                    "isRequired": true,
+                    "choices": [
+                        {
+                            "value": "last_night",
+                            "text": "Last night"
+                        },
+                        {
+                            "value": "tonight",
+                            "text": "Tonight"
+                        }
+                    ],
+                    "colCount": 2
+                },
+                {
+                    "type": "dropdown",
+                    "name": "inspire_level",
+                    "title": "Select inspire changes:",
+                    "hideNumber": true,
+                    "isRequired": true,
+                    "choices": [
+                        {
+                            "value": "0",
+                            "text": "0 / off / stopped"
+                        },
+                        "1",
+                        "2",
+                        "3",
+                        "4",
+                        "5",
+                        "6",
+                        "7",
+                        "8",
+                        "9",
+                        "10",
+                        "11"
+                    ]
+                }
+            ]
+        }
     ],
+    "navigateToUrl": "/",
     "navigateToUrlOnCondition": [
-     {}
+        {}
     ],
     "completeText": "Submit"
-   }
-
+}
 
 const appliance_json = {
     "logoPosition": "right",
@@ -185,17 +250,39 @@ const appliance_json = {
             "name": "page1",
             "elements": [
                 {
+                    "type": "radiogroup",
+                    "name": "whichnight",
+                    "startWithNewLine": false,
+                    "title": "Regarding: ",
+                    "hideNumber": true,
+                    "isRequired": true,
+                    "choices": [
+                     {
+                      "value": "last_night",
+                      "text": "Last night"
+                     },
+                     {
+                      "value": "tonight",
+                      "text": "Tonight"
+                     }
+                    ],
+                    "colCount": 2
+                   },
+                {
                     "type": "comment",
                     "name": "comment",
                     "title": "Type in the change to your Oral Appliance Therapy: ",
-                    "hideNumber": true
+                    "hideNumber": true,
+                    "isRequired": true
                 }
             ]
         }
     ],
+    "navigateToUrl": "/",
     "navigateToUrlOnCondition": [
         {}
-    ]
+    ],
+    "completeText": "Submit"
 }
 
 const pap_json = {
@@ -207,17 +294,39 @@ const pap_json = {
             "name": "page1",
             "elements": [
                 {
+                    "type": "radiogroup",
+                    "name": "whichnight",
+                    "startWithNewLine": false,
+                    "title": "Regarding: ",
+                    "hideNumber": true,
+                    "isRequired": true,
+                    "choices": [
+                     {
+                      "value": "last_night",
+                      "text": "Last night"
+                     },
+                     {
+                      "value": "tonight",
+                      "text": "Tonight"
+                     }
+                    ],
+                    "colCount": 2
+                   },
+                {
                     "type": "comment",
                     "name": "comment",
                     "title": "Type in the change to your PAP treatmen: ",
-                    "hideNumber": true
+                    "hideNumber": true,
+                    "isRequired": true
                 }
             ]
         }
     ],
+    "navigateToUrl": "/",
     "navigateToUrlOnCondition": [
         {}
-    ]
+    ],
+    "completeText": "Submit"
 }
 
 
