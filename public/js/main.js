@@ -18,9 +18,9 @@ $(() => {
     })
 
     // add logo 
-    const target = document.getElementById("pageTitle")
-    const logo ='<img id="app-logo" src="/public/images/logo.jpg" style="position: absolute;    top: 5px;    right: 0; height:60px"/>'
-    target.insertAdjacentHTML('beforebegin', logo);
+    // const target = document.getElementById("pageTitle")
+    // const logo ='<img id="app-logo" src="/public/images/logo.jpg" style="position: absolute;    top: 5px;    right: 0; height:60px"/>'
+    // target.insertAdjacentHTML('beforebegin', logo);
 
   $(".toggle-password").click(function () {
 
