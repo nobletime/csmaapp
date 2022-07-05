@@ -8390,3 +8390,7 @@ h1, h2, h3, h4, h5,
       .w3-sidebar  a:focus{
         background-color:#01d28e !important;
       }
+
+      .w3-teal{
+        height:70px  !important
+      }
