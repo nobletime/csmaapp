@@ -44,7 +44,6 @@
 
 	<script src="/public/js/main.js"></script>
 
-
 </head>
 
 <body class="fullscreen">
@@ -168,7 +167,12 @@
 
 	<script>
 
+		const params = new URLSearchParams(window.location.search)
+		if (params.has('pid')){
+		document.getElementById("patient_app_id").value =	params.get('pid')
+		} else {
 		document.getElementById("patient_app_id").value = localStorage.getItem("patient-app-id") || ""
+		}
 
 	</script>
 
