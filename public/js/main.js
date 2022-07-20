@@ -7,7 +7,7 @@ $(() => {
       .register('/public/sw.js');
   }
 
-  if (!window.matchMedia('(display-mode: standalone)').matches) {
+  if (window.matchMedia('(display-mode: standalone)').matches) {
     fetch("/getversion")
     .then(res => res.json())
     .then(data => {
@@ -21,12 +21,14 @@ $(() => {
       }
     })
 
-
+  } else {
+    
     if (getMobile() == "ios") {
 
     } else {
 
     }
+
   }
 
   // GETY NAV BAR
