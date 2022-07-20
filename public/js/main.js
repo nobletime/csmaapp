@@ -11,7 +11,7 @@ $(() => {
 
   fetch("/public/html/slider.html")
     .then(response => {
-      status = response.status
+     // status = response.status
       response.text().then(re => {
         document.getElementById("left-slider").innerHTML = re;
       })
@@ -32,6 +32,22 @@ $(() => {
       input.attr("type", "password");
     }
   });
+
+  fetch("/getversion")
+  .then(res=> res.json())
+    .then(data  => {
+      const oldV= document.getElementById("app-version").value
+      const newV =  data[0].version
+    if ((oldV!=newV)){
+      const message = `Your version of app is old ${oldV}, please install the new version of the app (verson ${newV})`
+      document.getElementById("appversion-message").innerHTML= message
+      document.getElementById("appUpdateBtn").click()
+   //   $("#appVersionModal").show();
+    }
+      
+
+    })
+
 
 })
 

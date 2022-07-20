@@ -522,6 +522,12 @@ app.post('/save-comment', async (req, res) => {
 
 });
 
+app.get('/getversion', async (req, res) => {
+  const found = await mdb.find("app_version", {});
+  res.send(JSON.stringify(found))
+
+});
+
 
 
 function https_request(httpsVar, options, cb) {

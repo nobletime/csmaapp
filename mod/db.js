@@ -4,7 +4,7 @@ const { ObjectId } = require('mongodb');
 const MongoClient = require('mongodb').MongoClient;
 const { ConnectionClosedEvent } = require('mongodb');
 
-const dbname = "rest-training";
+const dbname = "rest";
 const dburi = 'mongodb+srv://azureserver:Rest007@rest.ms872.mongodb.net/myFirstDatabase?retryWrites=true&w=majority';
 
 async function find(collection, query) {
