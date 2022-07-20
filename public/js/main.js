@@ -7,7 +7,7 @@ $(() => {
       .register('/public/sw.js');
   }
 
-  if (window.matchMedia('(display-mode: standalone)').matches) {
+  if ((window.matchMedia('(display-mode: standalone)').matches) || (window.navigator.standalone) || document.referrer.includes('android-app://')) {
     fetch("/getversion")
     .then(res => res.json())
     .then(data => {
@@ -22,8 +22,11 @@ $(() => {
     })
 
   } else {
-    
+
+    alert(`you are running ${getMobile()}`)
+
     if (getMobile() == "ios") {
+      document.getElementById("main-content").innerHTML = '<img src="/public/images/ios_install.jpg"   style="width:100%; border:2px solid green"  >'
 
     } else {
 

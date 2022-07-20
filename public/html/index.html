@@ -17,7 +17,6 @@
 	<meta name="msapplication-TileColor" content="#FFFFFF">
 	<meta name="description" content="CSMA APP, Sleep Therapy Tracker App">
 
-
 	<meta http-equiv="Cache-Control" content="no-cache, no-store, must-revalidate" />
 	<meta http-equiv="Pragma" content="no-cache" />
 	<meta http-equiv="Expires" content="0" />
@@ -82,7 +81,7 @@
            </a>
             </div> -->
 
-				<div class="login-wrap p-4 p-md-5 justify-content-center" onclick="w3_close()">
+				<div class="login-wrap p-4 p-md-5 justify-content-center"  id="main-content" onclick="w3_close()">
 
 					<div>
 						<input type="text" id="patient_app_id" value="" placeholder="APP ID"
@@ -212,21 +211,21 @@
 
 
 
-  <div class="modal fade" id="installInstruction" tabindex="-1" role="dialog" aria-labelledby="exampleModalLabel" aria-hidden="true">
+  <div class="modal fade" id="installInstruction" tabindex="-1" role="dialog" aria-labelledby="installModalLabel" aria-hidden="true">
 	<div class="modal-dialog" role="document">
 	  <div class="modal-content">
 		<div class="modal-header">
-		  <h5 class="modal-title" id="exampleModalLabel">How to Install App</h5>
+		  <h5 class="modal-title" id="installModalLabel">How to Install App on iOS: </h5>
 		  <button type="button" class="close" data-dismiss="modal" aria-label="Close">
 			<span aria-hidden="true">&times;</span>
 		  </button>
 		</div>
-		<div class="modal-body" id="appversion-message">
+		<div class="modal-body" id="">
 		
 		</div>
 		<div class="modal-footer">
-		  <button type="button" class="btn btn-secondary" data-dismiss="modal" id="closeAppUpdate" style="display:none">OK</button>
-		 <a href="https://csmaapp.azurewebsites.net/" target="_blank" rel="noopener"><button type="button" class="btn btn-primary" onclick='document.getElementById("closeAppUpdate").click()'>Update new app</button></a> 
+		  <button type="button" class="btn btn-secondary" data-dismiss="modal" id="closeAppInstall" >OK</button>
+		 <!-- <a href="https://csmaapp.azurewebsites.net/" target="_blank" rel="noopener"><button type="button" class="btn btn-primary" onclick='document.getElementById("closeAppUpdate").click()'>Update new app</button></a>  -->
 		</div>
 	  </div>
 	</div>
