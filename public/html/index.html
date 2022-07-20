@@ -121,7 +121,11 @@
 					Show App Update Modal
 				</button>
 
-					<input id="app-version" type="hidden" value ="1">
+				<button type="button" id="installAppBtn" class="btn btn-primary" data-toggle="modal" data-target="#installInstruction" style="display:none">
+					Show Install App
+				</button>
+
+					<input id="app-version" type="hidden" value ="2">
 					<!-- <div style="display: flex;justify-content: right;font-weight: bold;">
 
 									<div>
@@ -208,11 +212,11 @@
 
 
 
-  <div class="modal fade" id="exampleModal" tabindex="-1" role="dialog" aria-labelledby="exampleModalLabel" aria-hidden="true">
+  <div class="modal fade" id="installInstruction" tabindex="-1" role="dialog" aria-labelledby="exampleModalLabel" aria-hidden="true">
 	<div class="modal-dialog" role="document">
 	  <div class="modal-content">
 		<div class="modal-header">
-		  <h5 class="modal-title" id="exampleModalLabel">New Update Availlable</h5>
+		  <h5 class="modal-title" id="exampleModalLabel">How to Install App</h5>
 		  <button type="button" class="close" data-dismiss="modal" aria-label="Close">
 			<span aria-hidden="true">&times;</span>
 		  </button>
