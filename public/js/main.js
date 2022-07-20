@@ -7,20 +7,42 @@ $(() => {
       .register('/public/sw.js');
   }
 
+  if (!window.matchMedia('(display-mode: standalone)').matches) {
+    fetch("/getversion")
+    .then(res => res.json())
+    .then(data => {
+      const oldV = document.getElementById("app-version").value
+      const newV = data[0].version
+      if ((oldV != newV)) {
+        const message = `Your version of app is old ${oldV}, please install the new version of the app (verson ${newV})`
+        document.getElementById("appversion-message").innerHTML = message
+        document.getElementById("appUpdateBtn").click()
+        //   $("#appVersionModal").show();
+      }
+    })
+
+
+    if (getMobile() == "ios") {
+
+    } else {
+
+    }
+  }
+
   // GETY NAV BAR
 
   fetch("/public/html/slider.html")
     .then(response => {
-     // status = response.status
+      // status = response.status
       response.text().then(re => {
         document.getElementById("left-slider").innerHTML = re;
       })
     })
 
-    // add logo 
-    // const target = document.getElementById("pageTitle")
-    // const logo ='<img id="app-logo" src="/public/images/logo.jpg" style="position: absolute;    top: 5px;    right: 0; height:60px"/>'
-    // target.insertAdjacentHTML('beforebegin', logo);
+  // add logo 
+  // const target = document.getElementById("pageTitle")
+  // const logo ='<img id="app-logo" src="/public/images/logo.jpg" style="position: absolute;    top: 5px;    right: 0; height:60px"/>'
+  // target.insertAdjacentHTML('beforebegin', logo);
 
   $(".toggle-password").click(function () {
 
@@ -33,20 +55,7 @@ $(() => {
     }
   });
 
-  fetch("/getversion")
-  .then(res=> res.json())
-    .then(data  => {
-      const oldV= document.getElementById("app-version").value
-      const newV =  data[0].version
-    if ((oldV!=newV)){
-      const message = `Your version of app is old ${oldV}, please install the new version of the app (verson ${newV})`
-      document.getElementById("appversion-message").innerHTML= message
-      document.getElementById("appUpdateBtn").click()
-   //   $("#appVersionModal").show();
-    }
-      
 
-    })
 
 
 })
@@ -149,7 +158,7 @@ function w3_open() {
 
 }
 
-function savePatId(){
+function savePatId() {
   localStorage.setItem("patient-app-id", document.getElementById("patient_app_id").value)
 }
 
@@ -242,4 +251,23 @@ function getreport() {
       //  document.getElementById('report_message').innerHTML = response.body
     });
 
+}
+
+
+function getMobile() {
+  var userAgent = navigator.userAgent || navigator.vendor || window.opera;
+
+  if (/windows phone/i.test(userAgent)) {
+    return "windows_phone";
+  }
+
+  if (/android/i.test(userAgent)) {
+    return "android";
+  }
+
+  if (/iPad|iPhone|iPod/.test(userAgent) && !window.MSStream) {
+    return "ios";
+  }
+
+  return userAgent;
 }
