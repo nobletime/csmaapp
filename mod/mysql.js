@@ -12,7 +12,7 @@ const config =
     host: 'rest-tracker.mysql.database.azure.com',
     user: 'azuredb',
     password: 'Rest007!',
-    database: 'autocheck',
+    database: 'rest-tracker-app',
     port: 3306,
     ssl: { ca: fs.readFileSync(path.join(__dirname, "DigiCertGlobalRootCA.crt.pem")) }
 };
@@ -34,8 +34,8 @@ conn.connect(
 
 function insertUser(user) {
     return new Promise((resolve, reject) => {
-        conn.query('INSERT INTO users (username,email, password, created_date, type,  credits, token, promocode, active) VALUES (?, ?, ?, ?,?, ?, ?, ?, ?);',
-            [user.username, user.email, user.password, user.created_date, user.type, user.credits, user.token, user.promocode, user.active],
+        conn.query('INSERT INTO users (email, firsname, lastname, password, dob, created_date, gender,  phone, token, token, active) VALUES (?, ?, ?, ?,?, ?, ?, ?, ?, ?, ?);',
+            [user.email, user.firsname, user.lastname, user.password, user.dob, user.created_date, user.gender, user.gender, user.token, user.token, user.active],
             function (err, dbres, fields) {
                 if (err) return reject(null);
                 return resolve(dbres);

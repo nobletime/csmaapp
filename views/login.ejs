@@ -2,7 +2,7 @@
 <html lang="en">
 
 <head>
-	<title>Login: Vehicle Full History Report, thevinreport.com</title>
+	<title>Rest Tracker APP</title>
 	<meta charset="utf-8">
 	<meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
 
@@ -32,9 +32,7 @@
 			<div class="row justify-content-center">
 				<div class="col-md-6 text-center mb-5" style="height:50px">
 					<!-- <img src="/public/images/autocheck.jpg" > -->
-					<h2 class="heading-section" style="margin-top:5px">TheVinReport.com </h2> <a
-						href="/public/report/sample_autocheck_report.html" target="_blank" style="color:blue">See a
-						sample</a>
+					<h2 class="heading-section" style="margin-top:5px">Rest Tracker App </h2>
 				</div>
 
 			</div>
@@ -61,9 +59,13 @@
 								</div>
 							</div>
 							<form action="/signin" class="signin-form" method="post" onsubmit="return saveUsername()">
+								<!-- <div class="form-group mt-3">
+									<input type="email" class="form-control" id="email" name="email" required>
+									<label class="form-control-placeholder" for="email">Email</label>
+								</div> -->
 								<div class="form-group mt-3">
 									<input type="text" class="form-control" id="username" name="username" required>
-									<label class="form-control-placeholder" for="username">Username</label>
+									<label class="form-control-placeholder" for="username">App Id</label>
 								</div>
 								<div class="form-group">
 									<input id="password" type="password" class="form-control" id="password"
@@ -86,13 +88,12 @@
 									<div class="w-50 text-md-right">
 										<a href="#" onclick="showPasswordReset()">Forgot Password</a>
 									</div>
-
 								</div>
 							</form>
 							<div style="font-weight:nold; color:red">
 								<%= message %>
 							</div>
-							<p class="text-center">Not a member? <a data-toggle="tab" href="#" onclick="showSignUp()">Sign Up</a></p>
+							<!-- <p class="text-center">Not a member? <a data-toggle="tab" href="#" onclick="showSignUp()">Sign Up</a></p> -->
 						</div>
 						<div id="signup-div" class="login-wrap p-4 p-md-5" style="display:none">
 							<div class="d-flex">
@@ -101,16 +102,25 @@
 								</div>
 							</div>
 							<form action="/signup" class="signin-form" method="post"  onsubmit="return validateConfirmPassword()">
-								<div class="form-group mt-3">
+								<!-- <div class="form-group mt-3">
 									<input type="text" class="form-control" id="signup_username" name="username" 
 									pattern="^[a-zA-Z0-9]+$" title="Only alphanumeric" 
 									required>
 									<label class="form-control-placeholder" for="signup_username">Username</label>
+								</div> -->
+								<div class="form-group">
+									<input type="email" class="form-control" id="signup-email" name="email" required>
+									<label class="form-control-placeholder" for="signup-email">Email</label>
 								</div>
 								<div class="form-group">
-									<input type="email" class="form-control" id="email" name="email" required>
-									<label class="form-control-placeholder" for="email">Email</label>
+									<input type="text" class="form-control" id="firstname" name="firstname" required>
+									<label class="form-control-placeholder" for="firstname">Firstname</label>
 								</div>
+								<div class="form-group">
+									<input type="text" class="form-control" id="lastname" name="lastname" required>
+									<label class="form-control-placeholder" for="lastname">Lastname</label>
+								</div>
+
 								<div class="form-group">
 									<input type="password" class="form-control" id="newpassword"
 										name="password" pattern="^(?=.*[a-z])(?=.*[A-Z])(?=.*\d)[a-zA-Z\d]{8,}$|^(?=.*[A-Za-z])(?=.*\d)(?=.*[$@$!%*#?&])[A-Za-z\d$@$!%*#?&]{8,}$" title="Minimum eight characters, at least one uppercase letter, one lowercase letter and one number" required>
@@ -125,15 +135,21 @@
 									<label class="form-control-placeholder" for="confirm_password">Confirm Password</label>
 								</div>
 
-								<div class="form-group" style="font-weight:bold;margin-top: 20px;">
-									<label class="label-login" for="promocode">Promo code</label>
-									<input type="text" class="form-control" style="margin-top:10px" id="promocode" name="promocode" >									
+								<div class="form-group">
+									
+									<label  for="dob">Date of Birth (M/D/YYYY)</label>
+									<input type="text" class="form-control" id="dob" name="dob" placeholder="M/D/YYYY" required>
 								</div>
 
-								<div class="form-group">
-									<button type="submit" class="form-control btn btn-primary rounded submit px-3">Sign	Up</button>
+								<div class="form-group" style="font-weight:bold">
+									<label for="gender">Gender</label> <br/>
+									<select class="form-control" name="gender" id="gender" >
+										<option value="female">Female</option>
+										<option value="male">Male</option>										
+									  </select>									
 								</div>
-								<!-- <div class="form-group d-md-flex">
+
+																<!-- <div class="form-group d-md-flex">
 									<div class="w-50 text-left">
 										<label class="checkbox-wrap checkbox-primary mb-0">Remember Me
 											<input type="checkbox" name="remember" checked>
@@ -145,6 +161,11 @@
 									</div>
 
 								</div> -->
+
+								<div class="form-group">
+									<button type="submit" class="form-control btn btn-primary rounded submit px-3">Sign	Up</button>
+								</div>
+
 							</form>
 							<div id="note" style="font-weight:nold; color:red">
 								<%= message %>
@@ -160,11 +181,11 @@
 							</div>
 							<form action="/forgot-password" class="signin-form" method="post">
 								<div class="form-group mt-3">
-									<input type="text" class="form-control" id="forgot_username" name="username" required>
-									<label class="form-control-placeholder" for="username">Username</label>
+									<input type="email" class="form-control" id="forgot_email" name="email" required>
+									<label class="form-control-placeholder" for="forgot_email">Email</label>
 								</div>
 								<div class="form-group">
-									<button type="submit" class="form-control btn btn-primary rounded submit px-3">Request Reset Password 
+									<button type="submit" class="form-control btn btn-primary rounded submit px-3">Request Password Reset
 										</button>
 								</div>
 
@@ -179,6 +200,12 @@
 			</div>
 		</div>
 	</section>
+
+	<script>
+		document.getElementById("app_id").value =	localStorage.getItem("resttrackerapp-username")
+		document.getElementById("password").value =	localStorage.getItem("resttrackerapp-password")
+		
+	</script>
 </body>
 
 </html>

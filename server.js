@@ -32,11 +32,11 @@ app.use(express.raw({ type: 'application/octet-stream', limit: '50mb' }));
 
 app.use(
   session({
-    secret: "autocheck-report-vehicle",
+    secret: "rest-tracker-app",
     rolling: true,
     resave: true,
     saveUninitialized: false,
-    cookie: { maxAge: 21600000, secret: true },
+    cookie: { maxAge: 604000000, secret: true },
   })
 );
 app.use(passport.initialize());
@@ -61,18 +61,32 @@ passport.use(new LocalStrategy({
   passReqToCallback: true
 },
   async (req, username, password, done) => {
-    const user = req.body.username.toLowerCase();
-    //  const found = await mdb.findOne('users', { 'username': user });
-    const found = await mysql.findByUsername(user);
+    const user = req.body.username;
+    const found = await mdb.findOne('patient_list', { 'App_Id': user });
+   // const found = await mysql.findByUsername(user);
     if (!found)
       return done(null, false, req.flash('message', 'Wrong Username'))
+
+     // if (!req.body.remember) {
+        req.session.cookie.maxAge = 604000000
+     // }
+     
+     if (found.active == "No") {
+      return done(null, false, req.flash('message', 'Your account is pending activation'))
+     }
+
+      if (!found.password) {
+         if (password != found.App_Id ) {
+           return done(null, false, req.flash('message', 'Wrong Credential'))
+           } else {
+            return done(null, user)
+           }  
+      } 
 
     if (!await bcrypt.compare(password, found.password))
       return done(null, false, req.flash('message', 'Wrong Credential'))
 
-    if (!req.body.remember) {
-      req.session.cookie.maxAge = 300000
-    }
+
     return done(null, user)
   }
 ))
@@ -84,15 +98,8 @@ var isAuthenticated = function (req, res, next) {
   res.redirect('/signin');
 }
 
-// app.post('/signin', passport.authenticate('local', {
-//   successRedirect: '/users:/onboarding',
-//   failureRedirect: '/signin'
-// }))
 
-
-
-
-app.get('/users/:username', async (req, res) => {
+app.get('/users/:username', isAuthenticated,async (req, res) => {
   const user = req.params.username.toLowerCase();
   // const found = await mdb.findOne('users', { 'username': user });
   const found = await mysql.findByUsername(user);
@@ -140,9 +147,8 @@ app.post('/addcredits', async (req, res) => {
 
 
 
-app.get('/', (req, res) => {
-  return res.sendFile(path.join(__dirname, "public", "html", "index.html"))
-
+app.get('/', isAuthenticated, (req, res) => {
+return res.sendFile(path.join(__dirname, "public", "html", "index.html"))
 });
 
 
@@ -369,7 +375,8 @@ app.post('/signin', passport.authenticate('local', {
   if (req.body.username.toLowerCase() == "admin") {
     res.redirect(`/onboarding`);
   } else {
-    res.redirect(`/users/${req.body.username.toLowerCase()}`);
+ //   res.redirect(`/users/${req.body.username.toLowerCase()}`);
+    res.redirect(`/?app_id=` + req.user);
   }
 });
 
@@ -385,43 +392,27 @@ app.get('/signin', async (req, res) => {
 
 app.post('/signup', async (req, res) => {
 
-  const user = req.body.username.toLowerCase();
-  const promo = req.body.promocode.toLowerCase();
-  let credits = 0;
-
-  const found = await mysql.findByUsername(user);
+  const email = req.body.email.toLowerCase();
+  const found = await mysql.findByUsername(email);
 
   if (found) {
     req.flash('message', user + " is not available! Please choose another username.");
     return res.redirect('/signin');
   }
 
-  if (promo) {
-    const foundpromo = await mysql.findPromo(promo);
-    // const foundpromo = await mdb.findOne('promocodes', { 'promocode': promo });
-    if (foundpromo) {
-      credits = Number(foundpromo.credits);
-      //  await mdb.deleteOne('promocodes', { 'promocode': promo });
-      await mysql.deletePromo(promo);
-    } else {
-      req.flash('message', `The promo code entered was not valid. Your account was not created!`);
-      return res.redirect('/signin');
-    }
-  }
-
   const newuser = {
-    'username': user,
     'email': req.body.email.toLowerCase(),
+    'firsname': req.body.firstname,
+    'lastname': req.body.lastname,
     'password': bcrypt.hashSync(req.body.password, 12),
-    'created_date': new Date(),
-    'type': 'single',
-    'credits': credits,
+    'dob': req.body.dob,
+    'created_date': moment(new Date()).format("YYYY/MM/DD"),
+    'gender': req.body.gender,
+    'phone': req.body.phone,
     'token': randomUUID(),
-    'active': 'Yes',
-    'promocode': promo
+    'active': 'Pending',
   }
 
-  // const result = await mdb.save('users', newuser)
   const savedUser = await mysql.insertUser(newuser)
 
   req.flash('message', "Your account has been created! You can login now.");

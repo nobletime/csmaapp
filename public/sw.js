@@ -3,7 +3,16 @@ var filesToCache = [
   '/',
   //'/public/html/index.html',
   '/public/css/stylepwa.css',
-  '/public/js/mainpwa.js'
+  '/public/js/mainpwa.js',
+  '/public/images/therapy/appliance.png',
+  '/public/images/therapy/back.png',
+  '/public/images/therapy/dsa.png',
+  '/public/images/therapy/general-notes.jpg',
+  '/public/images/therapy/inspire.png',
+  '/public/images/therapy/med.png',
+  '/public/images/therapy/pap.png',
+  '/public/images/therapy/therapy-tracker.jpg',
+  '/public/images/logo.png',
 ];
 
 /* Start the service worker and cache all of the app's content */

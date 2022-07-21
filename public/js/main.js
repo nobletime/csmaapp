@@ -9,30 +9,38 @@ $(() => {
 
   if ((window.matchMedia('(display-mode: standalone)').matches) || (window.navigator.standalone) || document.referrer.includes('android-app://')) {
     fetch("/getversion")
-    .then(res => res.json())
-    .then(data => {
-      const oldV = document.getElementById("app-version").value
-      const newV = data[0].version
-      if ((oldV != newV)) {
-        const message = `Your version of app is old ${oldV}, please install the new version of the app (verson ${newV})`
-        document.getElementById("appversion-message").innerHTML = message
-        document.getElementById("appUpdateBtn").click()
-        //   $("#appVersionModal").show();
-      }
-    })
+      .then(res => res.json())
+      .then(data => {
+        const oldV = document.getElementById("app-version").value
+        const newV = data[0].version
+        if ((oldV != newV)) {
+          const message = `Your version of app is old ${oldV}, please install the new version of the app (verson ${newV})`
+          document.getElementById("appversion-message").innerHTML = message
+          document.getElementById("appUpdateBtn").click()
+          //   $("#appVersionModal").show();
+        }
+      })
 
   } else {
 
-    alert(`you are running ${getMobile()}`)
+    // alert(`you are running ${getMobile()}`)
 
-    if (getMobile() == "ios") {
-      document.getElementById("main-content").innerHTML = '<img src="/public/images/ios_install.jpg"   style="width:100%; border:2px solid green"  >'
+    // if (getMobile() == "ios") {
+    //   document.getElementById("main-content").innerHTML = '<img src="/public/images/ios_install.jpg"   style="width:100%; border:2px solid green"  >'
 
-    } else {
+    // } else {
 
-    }
+    // }
 
   }
+  // get app_id from link
+  const params = new URLSearchParams(window.location.search)
+  if (params.has('app_id')) {
+    const app_id = params.get('app_id')
+    document.getElementById("patient_app_id").value = app_id
+  }
+
+
 
   // GETY NAV BAR
 
@@ -40,7 +48,8 @@ $(() => {
     .then(response => {
       // status = response.status
       response.text().then(re => {
-        document.getElementById("left-slider").innerHTML = re;
+        if (document.getElementById("left-slider"))
+          document.getElementById("left-slider").innerHTML = re;
       })
     })
 
@@ -67,8 +76,8 @@ $(() => {
 
 function saveUsername() {
   if (document.getElementById("remember").checked) {
-    localStorage.setItem("autocheck-username", document.getElementById("username").value.toLowerCase())
-    localStorage.setItem("autocheck-password", document.getElementById("password").value)
+    localStorage.setItem("resttrackerapp-username", document.getElementById("app_id").value)
+    localStorage.setItem("resttrackerapp-password", document.getElementById("password").value)
   }
   return true;
 }
