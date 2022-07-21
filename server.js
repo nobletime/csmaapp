@@ -98,6 +98,23 @@ var isAuthenticated = function (req, res, next) {
   res.redirect('/signin');
 }
 
+app.post('/change-password', async (req, res) => {
+  const user = req.body.patient_app_id;
+  const found = await mdb.findOne('patient_list', { 'App_Id': user });
+
+  if (found.password) {
+    if (!await bcrypt.compare(req.body.currentpassword, found.password)) {
+      return res.send(`Current password is wrong. Password Not changed! <a href="/public/html/settings.html" > <button> Go back </button> </a>` )
+    }
+  } else{
+
+  }
+
+  const result = await mdb.updateOne("patient_list",  {_id: found._id.toString()}, { 'password': bcrypt.hashSync(req.body.newpassword, 12) })
+ // res.redirect("/")
+  res.send(`Password successfully changed! <a href="/public/html/settings.html" ><button> Go back </button> </a>` )
+})
+
 
 app.get('/users/:username', isAuthenticated,async (req, res) => {
   const user = req.params.username.toLowerCase();
@@ -461,6 +478,7 @@ app.post('/password-reset', async (req, res) => {
   return res.redirect('/signin');
 
 })
+
 
 
 app.post('/password-reset-internal', isAuthenticated, async (req, res) => {

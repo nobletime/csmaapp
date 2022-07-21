@@ -103,6 +103,12 @@ function showPasswordReset() {
 
 
 function validateConfirmPassword() {
+
+if (document.getElementById("patient_app_id").value == "") {
+    document.getElementById('note').innerHTML = 'APP ID cannot be empty. Please contact support to report this issue!'
+    return false;
+}
+
   if (document.getElementById('newpassword').value != document.getElementById('confirm_password').value) {
     document.getElementById('note').innerHTML = 'Password and confirmation passwords do NOT match!'
     return false;
