@@ -99,8 +99,8 @@
 
 						<div class="form-group">
 							<label  for="patient_app_id">App ID</label>
-							<input type="text" id="patient_app_id" name="patient_app_id" class="form-control"  readonly required>
-							
+							<input type="text" id="patient_app_id" name="patient_app_id" class="form-control"  required>
+							<button type="button" class="form-control btn btn-primary rounded submit px-3" onclick="saveAppId()">Save App Id</button>
 							
 						</div>
 						<br/>
@@ -185,6 +185,10 @@
 	<script>
 
 		document.getElementById("patient_app_id").value = localStorage.getItem("patient-app-id") || ""
+
+		function saveAppId(){
+			localStorage.setItem("patient-app-id" , document.getElementById("patient_app_id").value)
+		}
 
 	</script>
 
