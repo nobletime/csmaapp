@@ -55,7 +55,7 @@ $(() => {
 
             const surveydata = {
                 clinic_id: "CSMA",
-                patient_app_id: localStorage.getItem("patient-app-id") || "RS2VA7",
+                patient_app_id: localStorage.getItem("patient-app-id"),
                 date: new Date(),
                 plot_date: plot_date,
                 type: document.querySelector(".surveyElement").id,
