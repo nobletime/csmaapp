@@ -25,12 +25,12 @@ $(() => {
 
     // alert(`you are running ${getMobile()}`)
 
-    // if (getMobile() == "ios") {
-    //   document.getElementById("main-content").innerHTML = '<img src="/public/images/ios_install.jpg"   style="width:100%; border:2px solid green"  >'
+    if (getMobile() == "ios") {
+      document.getElementById("main-content").innerHTML = '<img src="/public/images/ios_install.jpg"   style="width:100%; border:2px solid green"  >'
 
-    // } else {
+    } else {
 
-    // }
+    }
 
   }
   // get app_id from link
