@@ -1,48 +1,12 @@
 "use strict";
+var app_id;
+
 
 $(() => {
 
-  if ('serviceWorker' in navigator) {
-    navigator.serviceWorker
-      .register('/public/sw.js');
-  }
-
-  if ((window.matchMedia('(display-mode: standalone)').matches) || (window.navigator.standalone) || document.referrer.includes('android-app://')) {
-    fetch("/getversion")
-      .then(res => res.json())
-      .then(data => {
-        const oldV = document.getElementById("app-version").value
-        const newV = data[0].version
-        if ((oldV != newV)) {
-          const message = `Your version of app is old ${oldV}, please install the new version of the app (verson ${newV})`
-          document.getElementById("appversion-message").innerHTML = message
-          document.getElementById("appUpdateBtn").click()
-          //   $("#appVersionModal").show();
-        }
-      })
-
-  } else {
-
-    // alert(`you are running ${getMobile()}`)
-
-    if (getMobile() == "ios") {
-      document.getElementById("main-content").innerHTML = '<img src="/public/images/ios_install.jpg"   style="width:100%; border:2px solid green"  >'
-
-    } else {
-
-    }
-
-  }
-  // get app_id from link
-  const params = new URLSearchParams(window.location.search)
-  if (params.has('app_id')) {
-    const app_id = params.get('app_id')
-    document.getElementById("patient_app_id").value = app_id
-  }
-
-
-
   // GETY NAV BAR
+  app_id = localStorage.getItem("patient-app-id")
+  console.log(app_id)
 
   fetch("/public/html/slider.html")
     .then(response => {

@@ -42,6 +42,7 @@
 		crossorigin="anonymous"></script>
 
 	<script src="/public/js/main.js"></script>
+	<script src="/public/js/mainpwa.js"></script>
 
 </head>
 
@@ -176,6 +177,7 @@
 		const params = new URLSearchParams(window.location.search)
 		if (params.has('app_id')){
 			localStorage.setItem("patient-app-id", params.get('app_id') ) 
+			
 		} 
 		
 

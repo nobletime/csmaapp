@@ -1,6 +1,6 @@
 var cacheName = 'hello-pwa';
 var filesToCache = [
-  //'/public/html/index.html',
+  '/',
   '/public/css/stylepwa.css',
   '/public/js/mainpwa.js',
   '/public/images/therapy/appliance.png',
@@ -26,9 +26,50 @@ self.addEventListener('install', function(e) {
 
 /* Serve cached content when offline */
 self.addEventListener('fetch', function(e) {
+  e.waitUntil(async function() {
+    // Exit early if we don't have access to the client.
+    // Eg, if it's cross-origin.
+    if (!e.clientId) return;
+
+    // Get the client.
+    const client = await clients.get(e.clientId);
+    // Exit early if we don't get the client.
+    // Eg, if it closed.
+    if (!client) return;
+
+    // Send a message to the client.
+    client.postMessage({
+      msg: "Hey I just got a fetch from you!",
+      url: e.request.url
+    });
+
+  })
+
   e.respondWith(
     caches.match(e.request).then(function(response) {
       return response || fetch(e.request);
     })
   );
 });
+
+self.addEventListener('activate', event => {
+  clients.claim();
+  console.log('Ready!');
+});
+
+self.addEventListener('install', (event) => {
+console.log("installing")
+})
+
+self.addEventListener('message', event => {
+  console.log(`SW: ${event.data}`);
+  if (JSON.parse(event.data).app_id) {
+  const app_id = new URL(location).searchParams.get("app_id")
+  event.source.postMessage(JSON.stringify({app_id: app_id}));
+  }
+});
+
+self.clients.matchAll().then(clients => {
+  clients.forEach(client => client.postMessage({msg: 'Hello from SW'}));
+})
+

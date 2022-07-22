@@ -61,7 +61,7 @@ passport.use(new LocalStrategy({
   passReqToCallback: true
 },
   async (req, username, password, done) => {
-    const user = req.body.username;
+    const user = req.body.username.trim();
     const found = await mdb.findOne('patient_list', { 'App_Id': user });
    // const found = await mysql.findByUsername(user);
     if (!found)
@@ -104,15 +104,17 @@ app.post('/change-password', async (req, res) => {
 
   if (found.password) {
     if (!await bcrypt.compare(req.body.currentpassword, found.password)) {
-      return res.send(`Current password is wrong. Password Not changed! <a href="/public/html/settings.html" > <button> Go back </button> </a>` )
+      req.flash('message', `<span style="color:red"> Current password is wrong. Password Not changed! </span>`);
+     return  res.redirect("/settings")
     }
   } else{
 
   }
 
   const result = await mdb.updateOne("patient_list",  {_id: found._id.toString()}, { 'password': bcrypt.hashSync(req.body.newpassword, 12) })
- // res.redirect("/")
-  res.send(`Password successfully changed! <a href="/public/html/settings.html" ><button> Go back </button> </a>` )
+ 
+  req.flash('message', `<span style="color:green">Password successfully changed! </span>`);
+  res.redirect("/settings")
 })
 
 
@@ -321,70 +323,7 @@ app.post('/user-list', isAuthenticated, async (req, res) => {
 
 });
 
-app.get('/promo-list', isAuthenticated, async (req, res) => {
-  //const result = await mdb.find("promocodes", {});
 
-  const result = await mysql.findAllPromo();
-
-  result.forEach(e => e['DT_RowId'] = e.promocode.toString());
-
-  let tableData = { "data": result, "options": [], "files": [], "debug": [{ "query": "SELECT  `id` as 'id', `name` as 'name', `created_by` as 'created_by', `type` as 'type', `email` as 'email', `start_date` as 'start_date', `interval` as 'interval', FROM  `scheduled_events` ", "bindings": [] }] };
-
-  res.send(JSON.stringify(tableData));
-});
-
-app.post('/promo-list', isAuthenticated, async (req, res) => {
-  let firstKey = "", newvalues, query = "";
-  let data = req.body.data, result = "";
-
-  let templateTData = { "data": [], "debug": [{ "query": "DELETE FROM  `datatables_demo` WHERE (`id` = :where_1 )", "bindings": [{ "name": ":where_1", "value": "3", "type": null }] }] };
-
-  switch (req.body.action) {
-    case 'create':
-      let obj = data[0];
-      // obj.clinic_id = new Date().getTime().toString();
-      //   result = await mdb.save("promocodes", obj);
-      obj.promocode = obj.promocode.toLowerCase()
-      result = await mysql.insertPromo(obj.promocode, obj.credits);
-      templateTData.data = [obj];
-      obj['DT_RowId'] = obj.promocode.toString();
-      res.send(JSON.stringify(templateTData));
-
-      // let subject = "C-GASP Screener Service Registeration";
-      // const pass = 'CsmaTraker1999';
-      // const surveylink = `https://airwayassessment.azurewebsites.net/qrcode?cid=${obj.clinic_id}`
-      // const body = `Your C-GASP Screener Service link to generate C-GASP Screener and view the results is below:<br/><a href="${surveylink}">${surveylink}</a>`;
-      // await send365Email('CSMA-Tracker@csma.clinic', [obj.email.toLowerCase()], subject, body, "Rest Tracker Report", pass, null);
-
-      break;
-    case 'edit':
-
-      firstKey = Object.keys(data)[0];
-      let datatmp = data[firstKey];
-      //query = { 'id': firstKey};
-
-      // result = await mdb.updateOne("users", query, datatmp);
-      result = await mysql.updatePromo(firstKey, datatmp.credits, datatmp.promocode);
-
-      datatmp['DT_RowId'] = firstKey;
-      templateTData.data = [datatmp];
-      res.send(JSON.stringify(templateTData));
-
-
-      break;
-
-    case 'remove':
-
-      firstKey = Object.keys(data)[0];
-      newvalues = data[firstKey];
-      //   query = { 'promocode': newvalues.promocode };
-      //    result = await mdb.deleteOne("promocodes", query);
-      result = await mysql.deletePromo(newvalues.promocode);
-      res.send(templateTData)
-      break;
-  }
-
-});
 
 app.post('/signin', passport.authenticate('local', {
   failureRedirect: '/signin'
@@ -535,6 +474,11 @@ app.get('/getversion', async (req, res) => {
   const found = await mdb.find("app_version", {});
   res.send(JSON.stringify(found))
 
+});
+
+app.get('/settings', async (req, res) => {
+  const message = req.flash('message');
+  res.render('settings', {message: message})
 });
 
 
