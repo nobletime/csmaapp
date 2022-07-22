@@ -1,12 +1,16 @@
 "use strict";
-var app_id;
-
 
 $(() => {
 
-  // GETY NAV BAR
-  app_id = localStorage.getItem("patient-app-id")
-  console.log(app_id)
+
+
+
+  // setTimeout(() => {
+  //   fetch(SHARED_DATA_ENDPOINT).then(response => response.json()).then(data => {
+  //     app_id = data.app_id
+  //     console.log('Got', data, 'from cache');
+  //   })
+  // }, 3000)
 
   fetch("/public/html/slider.html")
     .then(response => {
@@ -35,8 +39,23 @@ $(() => {
 
 
 
-
+  getAppId(); 
 })
+
+function getAppId() {
+  let app_id = localStorage.getItem("patient-app-id")
+  alert("APP_ID = " + app_id)
+  if (!app_id) {
+    const SHARED_DATA_ENDPOINT = '/app_id';
+    fetch(SHARED_DATA_ENDPOINT).then(response => response.json()).then(data => {
+      localStorage.setItem("patient-app-id", data.app_id)
+      console.log('Got', data, 'from cache');
+      alert("APP_ID = " + data.app_id)
+    });
+  }
+  
+
+}
 
 function saveUsername() {
   if (document.getElementById("remember").checked) {
@@ -68,10 +87,10 @@ function showPasswordReset() {
 
 function validateConfirmPassword() {
 
-if (document.getElementById("patient_app_id").value == "") {
+  if (document.getElementById("patient_app_id").value == "") {
     document.getElementById('note').innerHTML = 'APP ID cannot be empty. Please contact support to report this issue!'
     return false;
-}
+  }
 
   if (document.getElementById('newpassword').value != document.getElementById('confirm_password').value) {
     document.getElementById('note').innerHTML = 'Password and confirmation passwords do NOT match!'
@@ -143,7 +162,7 @@ function w3_open() {
 }
 
 function savePatId() {
-//  localStorage.setItem("patient-app-id", document.getElementById("patient_app_id").value)
+  //  localStorage.setItem("patient-app-id", document.getElementById("patient_app_id").value)
 }
 
 function w3_close() {

@@ -229,6 +229,22 @@
 	</div>
   </div>
 
+  <!-- <input type="text" id="app_id" >
+<button onclick="activate()">Activate</button> -->
+
+<script>
+function activate(){
+	const SHARED_DATA_ENDPOINT = '/app_id';
+	fetch(SHARED_DATA_ENDPOINT).then(response => response.json()).then(data => {
+          app_id = data.app_id
+          console.log('Got', data, 'from cache');
+        });
+
+
+}
+
+</script>
 </body>
+
 
 </html>
