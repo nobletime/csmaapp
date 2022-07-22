@@ -44,17 +44,6 @@ $(() => {
 
 function getAppId() {
   let app_id = localStorage.getItem("patient-app-id")
-  alert("APP_ID = " + app_id)
-  if (!app_id) {
-    const SHARED_DATA_ENDPOINT = '/app_id';
-    fetch(SHARED_DATA_ENDPOINT).then(response => response.json()).then(data => {
-      localStorage.setItem("patient-app-id", data.app_id)
-      console.log('Got', data, 'from cache');
-      alert("APP_ID = " + data.app_id)
-    });
-  }
-  
-
 }
 
 function saveUsername() {

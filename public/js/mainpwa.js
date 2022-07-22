@@ -7,13 +7,13 @@ window.onload = () => {
 
     navigator.serviceWorker
       .register('/public/sw.js').then(registeration => {
-        const params = new URLSearchParams(window.location.search)
-        if (params.has('app_id')) {
-          const SHARED_DATA_ENDPOINT = '/app_id';
-          fetch(SHARED_DATA_ENDPOINT, { method: "POST", body: JSON.stringify({ app_id: params.get('app_id') }) }).then(() => {
-            console.log('saved to cache')
-          })
-        }
+        // const params = new URLSearchParams(window.location.search)
+        // if (params.has('app_id')) {
+        //   const SHARED_DATA_ENDPOINT = '/app_id';
+        //   fetch(SHARED_DATA_ENDPOINT, { method: "POST", body: JSON.stringify({ app_id: params.get('app_id') }) }).then(() => {
+        //     console.log('saved to cache')
+        //   })
+        // }
       })
   }
 
