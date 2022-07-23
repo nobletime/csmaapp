@@ -36,12 +36,13 @@ $(() => {
     }
   });
 
-  //if (localStorage.getItem("patient-app-id").trim() == "" || localStorage.getItem("patient-app-id") == null) {
- // return alert("Please activate your profile to use the program!")
+  alert(localStorage.getItem("patient-app-id"))
+  // if (localStorage.getItem("patient-app-id") == null || localStorage.getItem("patient-app-id").trim() == "") {
+  // alert("Please activate your profile to use the program!")
 
   // } else {
 
-  //}
+  // }
 
 })
 
@@ -172,7 +173,7 @@ function addCamera() {
       alert(decodedText)
       localStorage.setItem("patient-app-id" , decodedText)
       document.getElementById("app_id_text").value = decodedText;
-      html5QrCode.stop().then((ignore) => {
+      html5QrcodeScanner.stop().then((ignore) => {
         alert(" QR Code scanning is stopped.")
       }).catch((err) => {
         // Stop failed, handle it.

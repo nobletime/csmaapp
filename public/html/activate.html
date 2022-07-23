@@ -120,7 +120,7 @@
 		if (localStorage.getItem("patient-app-id") ==null || localStorage.getItem("patient-app-id").trim() == "" ) {
 			 alert("Please activate your profile by scanning your QRcode!")
 		} else {
-
+			document.getElementById("app_id_text").value = localStorage.getItem("patient-app-id");
 		}
 
 	</script>

@@ -14,9 +14,9 @@ window.onload = () => {
         // }
       })
 
-      // const params = new URLSearchParams(window.location.search)
-      // if (params.has('app_id')){     
-      
+    // const params = new URLSearchParams(window.location.search)
+    // if (params.has('app_id')){     
+
   }
 
   navigator.serviceWorker.addEventListener("controllerchange", (evt) => {
@@ -33,7 +33,7 @@ window.onload = () => {
 
 
   if ((window.matchMedia('(display-mode: standalone)').matches) || (window.navigator.standalone) || document.referrer.includes('android-app://')) {
-    
+
     fetch("/getversion")
       .then(res => res.json())
       .then(data => {
@@ -47,12 +47,13 @@ window.onload = () => {
         }
       })
 
-      if (localStorage.getItem("patient-app-id") == null || localStorage.getItem("patient-app-id").trim() == "") {
-        document.querySelector("#mySidebar #activate").click();
-    
-      } else {
-    
-      }
+    if (localStorage.getItem("patient-app-id") == null || localStorage.getItem("patient-app-id").trim() == "") {
+      alert("Please activate your profile to use the program!")
+      document.querySelector("#mySidebar #activate").click();
+
+    } else {
+      alert(localStorage.getItem("patient-app-id"))
+    }
 
   } else {
 
