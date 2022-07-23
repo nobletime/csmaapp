@@ -3,7 +3,7 @@
 $(() => {
 
 
-
+//alert(localStorage.getItem("patient-app-id"))
 
   // setTimeout(() => {
   //   fetch(SHARED_DATA_ENDPOINT).then(response => response.json()).then(data => {
@@ -38,13 +38,8 @@ $(() => {
   });
 
 
-
-  getAppId(); 
 })
 
-function getAppId() {
-  let app_id = localStorage.getItem("patient-app-id")
-}
 
 function saveUsername() {
   if (document.getElementById("remember").checked) {
@@ -89,15 +84,6 @@ function validateConfirmPassword() {
   }
 }
 
-function addVin() {
-  var indexValue = Number($("#indexVin").val());
-  indexValue++;
-  $("#indexVin").val(indexValue);
-  var vinDivContent = $("#VinDiv").html() + '<input type="text" id="vin"' + indexValue + ' name="vin' + indexValue + '" placeholder="VIN ' + indexValue + '" required />';
-  $("#VinDiv").html(vinDivContent);
-
-}
-
 function showReport() {
   $('#report').show();
   $('#credits').hide();
@@ -116,14 +102,6 @@ function showDSA() {
   w3_close();
 }
 
-function showCredits() {
-  $('#report').hide();
-  $('#credits').show();
-  $('#settings').hide();
-  $('#support').hide();
-  document.getElementById("pageTitle").innerHTML = "Add Credits"
-  w3_close();
-}
 
 
 function showSettings() {
@@ -173,78 +151,34 @@ function viewReport() {
   win.moveTo(0, 0)
 }
 
-function getreport() {
-  localStorage.setItem("autocheck-email", document.getElementById("email").value.toLowerCase().trim())
-  const url = `/autocheck?username=${document.getElementById("username").value}`
-  let params = [
-    'toolbar=no',
-    'location=no',
-    'resizable=yes',
-    'height=' + screen.height,
-    'width=' + screen.width,
-    'fullscreen=yes' // only works in IE, but here for completeness
-  ].join(',');
-  var win = window.open("", "Report", params);
-  // let data = new FormData()
-  //   data.append('name', form.name.value)
-  var status;
-
-  fetch(url,
-    {
-      method: "POST",
-      cache: 'no-cache', // *default, no-cache, reload, force-cache, only-if-cached
-      credentials: 'same-origin', // include, *same-origin, omit
-      // whatever data you want to post with a key-value pair
-
-      body: `email=${document.getElementById("email").value}&vin=${document.getElementById("vin").value}`,
-      headers:
-      {
-        "Content-Type": "application/x-www-form-urlencoded"
-      }
-
-    }).then((response) => {
-      status = response.status
-      response.text().then(re => {
-        if (status == 403) {
-          window.location.replace("/signin");
-
-        } else if (status == 405) {
-          document.getElementById('report_message').innerHTML = re
-          win.close()
-        } else if (status == 302) {
-          document.getElementById('report_message').innerHTML = re
-          win.close()
-        } else if (status == 200) {
-          document.getElementById('report_message').innerHTML = '<span style="color:green"><b> Successful! </b></span>'
-          const data = JSON.parse(re);
-
-          const mycredits = document.getElementsByClassName("mycredits")
-          mycredits[0].innerHTML = mycredits[1].innerHTML = data.credits;
-          //  document.getElementById("report_message").innerHTML = `<span style="color:green"> Report downloaded for ${data.vin}</span>`
-
-          const btnDownload = `<div style="margin-top:40px; margin-bottom:40px;">  <button onclick="viewReport()" style="background:darkblue !important" class="form-control btn btn-primary rounded px-3"   onclick="getreport()"><b>Download Report: ${data.vin}</b></button></div>`;
-
-          document.getElementById("report_download").innerHTML = `${btnDownload}`;
-
-          document.getElementById("reportdata").innerHTML = data.pagedata;
-          win.document.body.innerHTML = data.pagedata;
-          // win.moveTo(0, 0)
 
 
-        } else {
-          document.getElementById('report_message').innerHTML = "Server error, please contact support"
-          win.close()
-        }
 
+function addCamera() {
+  var resultContainer = document.getElementById('qr-reader-results');
+  var lastResult, countResults = 0;
 
-        // console.log(re);
+  function onScanSuccess(decodedText, decodedResult) {
+    if (decodedText !== lastResult) {
+      ++countResults;
+      lastResult = decodedText;
+      // Handle on success condition with the decoded message.
+      console.log(`Scan result ${decodedText}`, decodedResult);
+      alert(decodedText)
+      html5QrCode.stop().then((ignore) => {
+        alert(" QR Code scanning is stopped.")
+      }).catch((err) => {
+        // Stop failed, handle it.
       });
+    }
+  }
 
-      //  document.getElementById('report_message').innerHTML = response.body
-    });
+  var html5QrcodeScanner = new Html5QrcodeScanner(
+    "qr-reader", { fps: 10, qrbox: 250 });
+  html5QrcodeScanner.render(onScanSuccess);
+
 
 }
-
 
 function getMobile() {
   var userAgent = navigator.userAgent || navigator.vendor || window.opera;

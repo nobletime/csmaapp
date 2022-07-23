@@ -15,6 +15,10 @@ window.onload = () => {
         //   })
         // }
       })
+
+      // const params = new URLSearchParams(window.location.search)
+      // if (params.has('app_id')){     
+
   }
 
   navigator.serviceWorker.addEventListener("controllerchange", (evt) => {

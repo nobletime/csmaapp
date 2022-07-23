@@ -25,6 +25,7 @@
   ],
   "lang": "en-US",
   "start_url": "/public/html/",
+  "id": "/public/html/",
   "scope": "/public/html/",
   "display": "standalone",
   "background_color": "white",

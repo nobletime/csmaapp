@@ -2,7 +2,7 @@ var cacheName = 'hello-pwa';
 var filesToCache = [
   '/',
   '/public/css/stylepwa.css',
-  '/public/js/mainpwa.js',
+  // '/public/js/mainpwa.js',
   '/public/images/therapy/appliance.png',
   '/public/images/therapy/back.png',
   '/public/images/therapy/dsa.png',
@@ -60,7 +60,7 @@ self.addEventListener('install', function(e) {
 /* Serve cached content when offline */
 self.addEventListener('fetch', function(event) {
   
-  e.waitUntil(async function() {
+  event.waitUntil(async function() {
     // Exit early if we don't have access to the client.
     // Eg, if it's cross-origin.
     // if (!e.clientId) return;

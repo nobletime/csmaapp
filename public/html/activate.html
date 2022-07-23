@@ -1,0 +1,123 @@
+<!doctype html>
+<html lang="en">
+
+<head>
+	<meta charset="utf-8">
+	<title>CSMA APP</title>
+	<link rel="manifest" href="/public/html/manifest.json">
+	<!-- <link rel="stylesheet" href="/public/css/stylepwa.css"> -->
+	<link rel="icon" href="/public/favicon.ico" type="image/x-icon" />
+	<link rel="apple-touch-icon" href="/public/images/hello-icon-152.png">
+	<meta name="viewport" content="width=device-width, initial-scale=1.0">
+	<meta name="theme-color" content="white" />
+	<meta name="apple-mobile-web-app-capable" content="yes">
+	<meta name="apple-mobile-web-app-status-bar-style" content="black">
+	<meta name="apple-mobile-web-app-title" content="CSMA App">
+	<meta name="msapplication-TileImage" content="/public/images/hello-icon-144.png">
+	<meta name="msapplication-TileColor" content="#FFFFFF">
+	<meta name="description" content="CSMA APP, Sleep Therapy Tracker App">
+
+
+	<meta http-equiv="Cache-Control" content="no-cache, no-store, must-revalidate" />
+	<meta http-equiv="Pragma" content="no-cache" />
+	<meta http-equiv="Expires" content="0" />
+
+	<link rel="stylesheet" href="https://www.w3schools.com/w3css/4/w3.css">
+	<link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/4.7.0/css/font-awesome.min.css">
+
+	<link href="https://fonts.googleapis.com/css?family=Lato:300,400,700&display=swap" rel="stylesheet">
+	<link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/font-awesome/4.7.0/css/font-awesome.min.css">
+	<link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap@4.3.1/dist/css/bootstrap.min.css"
+		integrity="sha384-ggOyR0iXCbMQv3Xipma34MD+dH/1fQ784/j6cY/iJTQUOhcWr7x9JvoRxT2MZw1T" crossorigin="anonymous">
+	<link rel="stylesheet" href="/public/css/loginstyle.css">
+	<script src="https://ajax.googleapis.com/ajax/libs/jquery/3.5.1/jquery.min.js"></script>
+
+	<script src="https://code.jquery.com/ui/1.13.1/jquery-ui.min.js"
+		integrity="sha256-eTyxS0rkjpLEo16uXTS0uVCS4815lc40K2iVpWDvdSY=" crossorigin="anonymous"></script>
+
+	<script src="https://cdn.jsdelivr.net/npm/popper.js@1.14.7/dist/umd/popper.min.js"
+		integrity="sha384-UO2eT0CpHqdSJQ6hJty5KVphtPhzWj9WO1clHTMGa3JDZwrnQq4sF86dIHNDz0W1"
+		crossorigin="anonymous"></script>
+	<script src="https://cdn.jsdelivr.net/npm/bootstrap@4.3.1/dist/js/bootstrap.min.js"
+		integrity="sha384-JjSmVgyd0p3pXB1rRibZUAYoIIy6OrQ6VrjIEaFf/nJGzIxFDsf4x0xIM+B07jRM"
+		crossorigin="anonymous"></script>
+
+	<script src="https://unpkg.com/html5-qrcode"></script>
+	<script src="/public/js/main.js"></script>
+
+</head>
+
+<body class="fullscreen">
+
+
+	<div class="container" id="reportpage">
+		<div class="row justify-content-center">
+			<!-- <div class="col-md-6 text-center mb-5">
+					<h2 class="heading-section">AutoCheck Report </h2> <a
+						href="/public/report/sample_autocheck_report.html" target="_blank" style="color:blue">See a
+						sample</a>
+				</div> -->
+		</div>
+
+		<div class="row ">
+
+
+			<div class="wrap">
+
+				<div id="left-slider"></div>
+
+				<div class="w3-teal" style="width:100%">
+					<button class="w3-button w3-teal w3-xlarge" onclick="w3_open()"><span
+							style="font-size:38px">&#9776;</span></button>
+
+					<h3 class="mb-4" style="display:inline; color:white;" id="pageTitle">Settings</h3>
+					<img id="app-logo" src="/public/images/logo.jpg"
+						style="position: absolute;    top: 5px;    right: 0; height:60px" />
+				</div>
+				<!-- <div class="img" style="background-image: url(/public/images/bg-1.jpg);"></div> -->
+
+
+				<!-- <div >
+              <a href="#test">
+                <img src="/public/images/therapy/back.png" width="100" />
+           </a>
+            </div> -->
+
+				<a href="/public/html/index.html" class="back-btn">
+					<img src="/public/images/therapy/back.png" alt="back" width="50" />
+				</a>
+
+				<div class="login-wrap p-4 p-md-5 justify-content-center" onclick="w3_close()">
+
+
+					<div>
+						<h3>App Version: 2.2</h3>
+					</div>
+
+
+					<div id="qr-reader" style="width:100%"></div>
+					<div id="qr-reader-results"></div>
+
+					<div class="form-group">
+						<span id="note" style="color:red; font-weight: bold;"></span>
+					</div>
+
+				</div>
+
+			</div>
+
+
+		</div>
+	</div>
+
+
+	<script>
+		addCamera()
+
+	</script>
+
+
+
+</body>
+
+</html>
