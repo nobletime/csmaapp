@@ -166,7 +166,7 @@ app.post('/addcredits', async (req, res) => {
 
 
 
-app.get('/', isAuthenticated, (req, res) => {
+app.get('/', (req, res) => {
 return res.sendFile(path.join(__dirname, "public", "html", "index.html"))
 });
 

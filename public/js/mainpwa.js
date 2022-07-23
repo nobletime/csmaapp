@@ -16,12 +16,6 @@ window.onload = () => {
 
       // const params = new URLSearchParams(window.location.search)
       // if (params.has('app_id')){     
-        if (localStorage.getItem("patient-app-id") == null || localStorage.getItem("patient-app-id").trim() == "") {
-          document.querySelector("#mySidebar #activate").click();
-      
-        } else {
-      
-        }
       
   }
 
@@ -39,6 +33,7 @@ window.onload = () => {
 
 
   if ((window.matchMedia('(display-mode: standalone)').matches) || (window.navigator.standalone) || document.referrer.includes('android-app://')) {
+    
     fetch("/getversion")
       .then(res => res.json())
       .then(data => {
@@ -51,6 +46,13 @@ window.onload = () => {
           //   $("#appVersionModal").show();
         }
       })
+
+      if (localStorage.getItem("patient-app-id") == null || localStorage.getItem("patient-app-id").trim() == "") {
+        document.querySelector("#mySidebar #activate").click();
+    
+      } else {
+    
+      }
 
   } else {
 

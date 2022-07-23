@@ -179,10 +179,6 @@ function addCamera() {
       });
     }
   }
-
-
-
-
 }
 
 function getMobile() {
