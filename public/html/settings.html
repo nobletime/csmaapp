@@ -145,9 +145,8 @@
 	<script>
 
 		document.getElementById("patient_app_id").value = localStorage.getItem("patient-app-id") || ""
-
-		function saveAppId(){
-			localStorage.setItem("patient-app-id" , document.getElementById("patient_app_id").value)
+		if (document.getElementById("patient_app_id").value.trim()=="") {
+			alert("No app ID, contact support!")
 		}
 
 	</script>

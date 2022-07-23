@@ -165,6 +165,7 @@ function addCamera() {
       // Handle on success condition with the decoded message.
       console.log(`Scan result ${decodedText}`, decodedResult);
       alert(decodedText)
+      localStorage.setItem("patient-app-id" , decodedText)
       html5QrCode.stop().then((ignore) => {
         alert(" QR Code scanning is stopped.")
       }).catch((err) => {
