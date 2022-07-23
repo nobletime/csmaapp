@@ -109,7 +109,7 @@
 						<tbody>
 							<tr>
 								<td id="version">1.0.1</td>
-								<td><input id="app_id_text" style="font-weight: bold;width:100%" readonly></td>
+								<td id ="app_id_text">-</td>
 								<td id="firstname">- </td>
 								<td id="lastname">- </td>
 								<td id="dob">- </td>
@@ -198,7 +198,7 @@
 		if (localStorage.getItem("patient-app-id") == null || localStorage.getItem("patient-app-id").trim() == "") {
 		//	alert("Please activate your profile by scanning your QRcode!")
 		} else {
-			document.getElementById("app_id_text").value = localStorage.getItem("patient-app-id");
+			document.getElementById("app_id_text").innerHTML = localStorage.getItem("patient-app-id");
 		}
 
 

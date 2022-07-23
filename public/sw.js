@@ -2,7 +2,6 @@ var cacheName = 'hello-pwa';
 var filesToCache = [
   '/',
   '/public/css/stylepwa.css',
-  // '/public/js/mainpwa.js',
   '/public/images/therapy/appliance.png',
   '/public/images/therapy/back.png',
   '/public/images/therapy/dsa.png',
@@ -12,7 +11,9 @@ var filesToCache = [
   '/public/images/therapy/pap.png',
   '/public/images/therapy/therapy-tracker.jpg',
   '/public/images/logo.jpg',
-  '/settings'
+  '/public/js/mainpwa.js',
+  '/public/js/main.js'
+  //'/public/js/surverys.js',
 ];
 
 /* Start the service worker and cache all of the app's content */

@@ -174,7 +174,7 @@ function addCamera() {
 
 
       localStorage.setItem("patient-app-id", decodedText)
-      document.getElementById("app_id_text").value = decodedText;
+      document.getElementById("app_id_text").innerHTML = decodedText;
       html5QrcodeScanner.clear();
       document.getElementById("activatedBtn").click()
 
