@@ -2,15 +2,6 @@
 
 $(() => {
 
-
-
-  // setTimeout(() => {
-  //   fetch(SHARED_DATA_ENDPOINT).then(response => response.json()).then(data => {
-  //     app_id = data.app_id
-  //     console.log('Got', data, 'from cache');
-  //   })
-  // }, 3000)
-
   fetch("/public/html/slider.html")
     .then(response => {
       // status = response.status
@@ -40,7 +31,6 @@ $(() => {
     if (localStorage.getItem("patient-app-id") == null || localStorage.getItem("patient-app-id").trim() == "") {
       alert("Please activate your profile to use the program!")
       document.querySelector("#mySidebar #activate").click();
-
     } else {
 
     }
