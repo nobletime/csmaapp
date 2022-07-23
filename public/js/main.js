@@ -3,7 +3,6 @@
 $(() => {
 
 
-//alert(localStorage.getItem("patient-app-id"))
 
   // setTimeout(() => {
   //   fetch(SHARED_DATA_ENDPOINT).then(response => response.json()).then(data => {
@@ -37,6 +36,12 @@ $(() => {
     }
   });
 
+  //if (localStorage.getItem("patient-app-id").trim() == "" || localStorage.getItem("patient-app-id") == null) {
+ // return alert("Please activate your profile to use the program!")
+
+  // } else {
+
+  //}
 
 })
 
@@ -128,10 +133,6 @@ function w3_open() {
 
 }
 
-function savePatId() {
-  //  localStorage.setItem("patient-app-id", document.getElementById("patient_app_id").value)
-}
-
 function w3_close() {
   //  document.getElementById("mySidebar").style.display = "none";			
   $("#mySidebar").hide("slide", { direction: "left" }, 300);
@@ -158,6 +159,10 @@ function addCamera() {
   var resultContainer = document.getElementById('qr-reader-results');
   var lastResult, countResults = 0;
 
+  var html5QrcodeScanner = new Html5QrcodeScanner(
+    "qr-reader", { fps: 10, qrbox: 250 });
+  html5QrcodeScanner.render(onScanSuccess);
+
   function onScanSuccess(decodedText, decodedResult) {
     if (decodedText !== lastResult) {
       ++countResults;
@@ -166,6 +171,7 @@ function addCamera() {
       console.log(`Scan result ${decodedText}`, decodedResult);
       alert(decodedText)
       localStorage.setItem("patient-app-id" , decodedText)
+      document.getElementById("app_id_text").value = decodedText;
       html5QrCode.stop().then((ignore) => {
         alert(" QR Code scanning is stopped.")
       }).catch((err) => {
@@ -174,9 +180,7 @@ function addCamera() {
     }
   }
 
-  var html5QrcodeScanner = new Html5QrcodeScanner(
-    "qr-reader", { fps: 10, qrbox: 250 });
-  html5QrcodeScanner.render(onScanSuccess);
+
 
 
 }

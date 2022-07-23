@@ -1,8 +1,6 @@
 window.onload = () => {
   'use strict';
 
-  // get app_id from link
-  //          localStorage.setItem("patient-app-id", params.get('app_id') ) 
   if ('serviceWorker' in navigator) {
 
     navigator.serviceWorker
@@ -18,7 +16,13 @@ window.onload = () => {
 
       // const params = new URLSearchParams(window.location.search)
       // if (params.has('app_id')){     
-
+        if (localStorage.getItem("patient-app-id") == null || localStorage.getItem("patient-app-id").trim() == "") {
+          document.querySelector("#mySidebar #activate").click();
+      
+        } else {
+      
+        }
+      
   }
 
   navigator.serviceWorker.addEventListener("controllerchange", (evt) => {
