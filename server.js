@@ -98,6 +98,12 @@ var isAuthenticated = function (req, res, next) {
   res.redirect('/signin');
 }
 
+app.get("/getaccount", async (req, res)=>{
+  const user = req.query.app_id.trim();
+  const found = await mdb.findOne('patient_list', { 'App_Id': user });
+  res.send(JSON.stringify(found))
+})
+
 app.post('/change-password', async (req, res) => {
   const user = req.body.patient_app_id;
   const found = await mdb.findOne('patient_list', { 'App_Id': user });
@@ -116,6 +122,8 @@ app.post('/change-password', async (req, res) => {
   req.flash('message', `<span style="color:green">Password successfully changed! </span>`);
   res.redirect("/settings")
 })
+
+
 
 
 app.get('/users/:username', isAuthenticated,async (req, res) => {

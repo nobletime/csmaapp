@@ -29,12 +29,21 @@ $(() => {
 
   if ((window.matchMedia('(display-mode: standalone)').matches) || (window.navigator.standalone) || document.referrer.includes('android-app://')) {
     if (localStorage.getItem("patient-app-id") == null || localStorage.getItem("patient-app-id").trim() == "") {
-      alert("Please activate your profile to use the program!")
-      document.querySelector("#mySidebar #activate").click();
+      if (document.getElementById("activateBtn"))
+        document.getElementById("activateBtn").click()
     } else {
 
     }
   }
+
+  if (document.getElementById("closeAppInstall")) {
+    document.getElementById("closeAppInstall").addEventListener("click", () => {
+      document.querySelector("#mySidebar #activate").click()
+    })
+  }
+
+
+
 })
 
 
@@ -153,7 +162,7 @@ function addCamera() {
 
   var html5QrcodeScanner = new Html5QrcodeScanner(
     "qr-reader", { fps: 10, qrbox: 250 });
-  html5QrcodeScanner.render(onScanSuccess);
+  html5QrcodeScanner.render(onScanSuccess, onScanFailure);
 
   function onScanSuccess(decodedText, decodedResult) {
     if (decodedText !== lastResult) {
@@ -162,15 +171,40 @@ function addCamera() {
       // Handle on success condition with the decoded message.
       console.log(`Scan result ${decodedText}`, decodedResult);
       // alert(decodedText)
+
+
       localStorage.setItem("patient-app-id", decodedText)
       document.getElementById("app_id_text").value = decodedText;
-      html5QrcodeScanner.stop().then((ignore) => {
-        alert(" QR Code scanning is stopped.")
-      }).catch((err) => {
-        // Stop failed, handle it.
-      });
+      html5QrcodeScanner.clear();
+      document.getElementById("activatedBtn").click()
+
+      fetch(`/getaccount?app_id=${decodedText}`).then(response =>response.json())
+      .then(data => {
+        document.querySelector("#profileTbl #firstname").innerHTML = data.First_Name
+        document.querySelector("#profileTbl #lastname").innerHTML = data.Last_Name
+        document.querySelector("#profileTbl #dob").innerHTML = data.DOB
+        document.querySelector("#profileTbl #inspire").innerHTML = data.Inspire
+        document.querySelector("#profileTbl #pap").innerHTML = (data.pap_device.trim() == "")?  "-" : data.pap_device
+        document.querySelector("#profileTbl #email").innerHTML = data.Email
+        localStorage.setItem("rest-profileInfo", JSON.stringify(data))
+      })
+
+      // document.querySelectorAll("#qr-reader__dashboard_section_csr button")[1].click()
+      // html5QrcodeScanner.stop().then((ignore) => {
+      //   alert(" QR Code scanning is stopped.")
+      // }).catch((err) => {
+      //   // Stop failed, handle it.
+      // });
     }
   }
+
+
+  function onScanFailure(error) {
+    // handle scan failure, usually better to ignore and keep scanning
+    //document.getElementById("activatedErrorBtn").click()
+   // console.warn(`QR error = ${error}`);
+  }
+
 }
 
 function getMobile() {
@@ -190,3 +224,4 @@ function getMobile() {
 
   return userAgent;
 }
+

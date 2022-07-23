@@ -51,7 +51,11 @@ window.onload = () => {
 
     // alert(`you are running ${getMobile()}`)
     if (getMobile() == "ios") {
-      document.getElementById("main-content").innerHTML = '<img src="/public/images/ios_install.jpg"   style="width:100%; border:2px solid green"  >'
+      document.getElementById("main-content").innerHTML = `
+      <div>
+        Follow steps below to Install the App to IOS:
+      </div> <br/>
+      <img src="/public/images/ios_install.jpg"   style="width:100%; border:2px solid green"  >`
 
     } else {
 
