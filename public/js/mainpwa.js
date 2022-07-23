@@ -47,14 +47,6 @@ window.onload = () => {
         }
       })
 
-    if (localStorage.getItem("patient-app-id") == null || localStorage.getItem("patient-app-id").trim() == "") {
-      alert("Please activate your profile to use the program!")
-      document.querySelector("#mySidebar #activate").click();
-
-    } else {
-      alert(localStorage.getItem("patient-app-id"))
-    }
-
   } else {
 
     // alert(`you are running ${getMobile()}`)

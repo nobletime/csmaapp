@@ -36,14 +36,15 @@ $(() => {
     }
   });
 
-  alert(localStorage.getItem("patient-app-id"))
-  // if (localStorage.getItem("patient-app-id") == null || localStorage.getItem("patient-app-id").trim() == "") {
-  // alert("Please activate your profile to use the program!")
+  if ((window.matchMedia('(display-mode: standalone)').matches) || (window.navigator.standalone) || document.referrer.includes('android-app://')) {
+    if (localStorage.getItem("patient-app-id") == null || localStorage.getItem("patient-app-id").trim() == "") {
+      alert("Please activate your profile to use the program!")
+      document.querySelector("#mySidebar #activate").click();
 
-  // } else {
+    } else {
 
-  // }
-
+    }
+  }
 })
 
 
@@ -170,8 +171,8 @@ function addCamera() {
       lastResult = decodedText;
       // Handle on success condition with the decoded message.
       console.log(`Scan result ${decodedText}`, decodedResult);
-      alert(decodedText)
-      localStorage.setItem("patient-app-id" , decodedText)
+      // alert(decodedText)
+      localStorage.setItem("patient-app-id", decodedText)
       document.getElementById("app_id_text").value = decodedText;
       html5QrcodeScanner.stop().then((ignore) => {
         alert(" QR Code scanning is stopped.")
