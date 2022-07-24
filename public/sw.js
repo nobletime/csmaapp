@@ -10,9 +10,9 @@ var filesToCache = [
   '/public/images/therapy/med.png',
   '/public/images/therapy/pap.png',
   '/public/images/therapy/therapy-tracker.jpg',
-  '/public/images/logo.jpg',
-  '/public/js/mainpwa.js',
-  '/public/js/main.js'
+  '/public/images/logo.jpg'
+  // '/public/js/mainpwa.js',
+  // '/public/js/main.js'
   //'/public/js/surverys.js',
 ];
 
