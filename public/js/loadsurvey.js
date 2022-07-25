@@ -50,6 +50,12 @@ $(() => {
         .onComplete
         .add(function (sender) {
 
+            if (localStorage.getItem("patient-app-id") == null || localStorage.getItem("patient-app-id").trim() == "") {
+                if (document.getElementById("activateBtn"))
+                  document.getElementById("activateBtn").click()
+                  return false;
+            }
+
             const plot_date = (sender.data.whichnight == "last_night") ?  new Date().setHours(0,0,0,0)-1
                                     : new Date().setHours(23,59,59,999);
 

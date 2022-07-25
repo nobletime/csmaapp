@@ -27,14 +27,14 @@ $(() => {
     }
   });
 
-  if ((window.matchMedia('(display-mode: standalone)').matches) || (window.navigator.standalone) || document.referrer.includes('android-app://')) {
+  //if ((window.matchMedia('(display-mode: standalone)').matches) || (window.navigator.standalone) || document.referrer.includes('android-app://')) {
     if (localStorage.getItem("patient-app-id") == null || localStorage.getItem("patient-app-id").trim() == "") {
       if (document.getElementById("activateBtn"))
         document.getElementById("activateBtn").click()
     } else {
 
     }
-  }
+  //}
 
   if (document.getElementById("closeAppInstall")) {
     document.getElementById("closeAppInstall").addEventListener("click", () => {
