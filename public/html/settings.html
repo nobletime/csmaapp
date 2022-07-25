@@ -30,6 +30,7 @@
 	<link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap@4.3.1/dist/css/bootstrap.min.css"
 		integrity="sha384-ggOyR0iXCbMQv3Xipma34MD+dH/1fQ784/j6cY/iJTQUOhcWr7x9JvoRxT2MZw1T" crossorigin="anonymous">
 	<link rel="stylesheet" href="/public/css/loginstyle.css">
+	<link rel="stylesheet" href="/public/css/table.css">
 	<script src="https://ajax.googleapis.com/ajax/libs/jquery/3.5.1/jquery.min.js"></script>
 
 	<script src="https://code.jquery.com/ui/1.13.1/jquery-ui.min.js"
@@ -88,50 +89,32 @@
 				<div class="login-wrap p-4 p-md-5 justify-content-center" onclick="w3_close()">
 
 
-					<div>
-						<h3>App Version: 1.0.1</h3>
-					</div>
-
-
-					<form action="/change-password" class="signin-form" method="post"
-						onsubmit="return validateConfirmPassword()">
-
-
-						<div class="form-group">
-							<label  for="patient_app_id">App ID</label>
-							<input type="text" id="patient_app_id" name="patient_app_id" class="form-control"  required readonly>
-							<!-- <button type="button" class="form-control btn btn-primary rounded submit px-3" onclick="saveAppId()">Save App Id</button> -->
-							
-						</div>
-						<br/>
-
-						<div class="form-group">
-							<input type="password" class="form-control" id="currentpassword" name="currentpassword"	required>
-							<label class="form-control-placeholder" for="currentpassword">Current Password</label>
-						</div>
-
-						<div class="form-group">
-							<input type="password" class="form-control" id="newpassword" name="newpassword"
-								pattern="^(?=.*[a-z])(?=.*[A-Z])(?=.*\d)[a-zA-Z\d]{8,}$|^(?=.*[A-Za-z])(?=.*\d)(?=.*[$@$!%*#?&])[A-Za-z\d$@$!%*#?&]{8,}$"
-								title="Minimum eight characters, at least one uppercase letter, one lowercase letter and one number"
-								required>
-							<label class="form-control-placeholder" for="newpassword">New Password</label>
-							<span toggle="#newpassword" class="fa fa-fw fa-eye field-icon toggle-password"></span>
-						</div>
-
-					<div class="form-group">
-						<input type="password" class="form-control" id="confirm_password" name="confirm_password"
-							required>
-						<label class="form-control-placeholder" for="confirm_password">Confirm Password</label>
-					</div>
-
-					<div class="form-group">
-						<button type="submit" class="form-control btn btn-primary rounded submit px-3">Change Password</button>
-					</div>
-				</form>
-				<div class="form-group">
-					<span id="note" style="color:red; font-weight: bold;"></span>
-				</div>
+					<table id="profileTbl" style="margin-bottom: 5px;">
+						<thead>
+							<tr>
+								<th>APP Version</th>
+								<th>APP ID</th>
+								<th>First Name</th>
+								<th>Last Name</th>
+								<th>DOB</th>
+								<th>Inspire</th>
+								<th>Pap</th>
+								<th>Email</th>
+							</tr>
+						</thead>
+						<tbody>
+							<tr>
+								<td id="version">1.0.2</td>
+								<td id ="app_id_text">-</td>
+								<td id="firstname">- </td>
+								<td id="lastname">- </td>
+								<td id="dob">- </td>
+								<td id="inspire"> -</td>
+								<td id="pap"> -</td>
+								<td id="email"> -</td>
+							</tr>
+						</tbody>
+					</table>
 
 				</div>
 
@@ -144,10 +127,20 @@
 
 	<script>
 
-		document.getElementById("patient_app_id").value = localStorage.getItem("patient-app-id") || ""
-		if (document.getElementById("patient_app_id").value.trim()=="") {
-			alert("No app ID, contact support!")
+		function getProfileInoFromLocal() {
+			const profileInfo = localStorage.getItem("rest-profileInfo")
+			if (profileInfo) {
+				const data = JSON.parse(profileInfo) 
+				document.querySelector("#profileTbl #firstname").innerHTML = data.First_Name
+				document.querySelector("#profileTbl #lastname").innerHTML = data.Last_Name
+				document.querySelector("#profileTbl #dob").innerHTML = data.DOB
+				document.querySelector("#profileTbl #inspire").innerHTML = data.Inspire				
+				document.querySelector("#profileTbl #pap").innerHTML = (data.pap_device.trim() == "")?  "-" : data.pap_device
+				document.querySelector("#profileTbl #email").innerHTML = data.Email
+			}
 		}
+
+		getProfileInoFromLocal()
 
 	</script>
 

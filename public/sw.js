@@ -1,6 +1,5 @@
 var cacheName = 'hello-pwa';
 var filesToCache = [
-  '/',
   '/public/css/stylepwa.css',
   '/public/images/therapy/appliance.png',
   '/public/images/therapy/back.png',

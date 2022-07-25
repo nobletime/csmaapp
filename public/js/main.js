@@ -178,19 +178,20 @@ function addCamera() {
 
 
       localStorage.setItem("patient-app-id", decodedText)
-      document.getElementById("app_id_text").innerHTML = decodedText;
+    //  document.getElementById("app_id_text").innerHTML = decodedText;
       html5QrcodeScanner.clear();
-      document.getElementById("activatedBtn").click()
+     
 
       fetch(`/getaccount?app_id=${decodedText}`).then(response => response.json())
         .then(data => {
-          document.querySelector("#profileTbl #firstname").innerHTML = data.First_Name
-          document.querySelector("#profileTbl #lastname").innerHTML = data.Last_Name
-          document.querySelector("#profileTbl #dob").innerHTML = data.DOB
-          document.querySelector("#profileTbl #inspire").innerHTML = data.Inspire
-          document.querySelector("#profileTbl #pap").innerHTML = (data.pap_device.trim() == "") ? "-" : data.pap_device
-          document.querySelector("#profileTbl #email").innerHTML = data.Email
+          // document.querySelector("#profileTbl #firstname").innerHTML = data.First_Name
+          // document.querySelector("#profileTbl #lastname").innerHTML = data.Last_Name
+          // document.querySelector("#profileTbl #dob").innerHTML = data.DOB
+          // document.querySelector("#profileTbl #inspire").innerHTML = data.Inspire
+          // document.querySelector("#profileTbl #pap").innerHTML = (data.pap_device.trim() == "") ? "-" : data.pap_device
+          // document.querySelector("#profileTbl #email").innerHTML = data.Email
           localStorage.setItem("rest-profileInfo", JSON.stringify(data))
+          document.getElementById("activatedBtn").click()
         })
 
       // document.querySelectorAll("#qr-reader__dashboard_section_csr button")[1].click()
