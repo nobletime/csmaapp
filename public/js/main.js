@@ -42,6 +42,10 @@ $(() => {
     })
   }
 
+  if (document.querySelector("#qr-reader")) {    
+    document.querySelectorAll("#qr-reader a")[2].innerHTML = "Upload an Image File of the QRcode";
+    document.querySelector("#qr-reader button").innerHTML = "Request Camera Permissions to Scan QR Code";
+  }
 
 
 })
@@ -178,16 +182,16 @@ function addCamera() {
       html5QrcodeScanner.clear();
       document.getElementById("activatedBtn").click()
 
-      fetch(`/getaccount?app_id=${decodedText}`).then(response =>response.json())
-      .then(data => {
-        document.querySelector("#profileTbl #firstname").innerHTML = data.First_Name
-        document.querySelector("#profileTbl #lastname").innerHTML = data.Last_Name
-        document.querySelector("#profileTbl #dob").innerHTML = data.DOB
-        document.querySelector("#profileTbl #inspire").innerHTML = data.Inspire
-        document.querySelector("#profileTbl #pap").innerHTML = (data.pap_device.trim() == "")?  "-" : data.pap_device
-        document.querySelector("#profileTbl #email").innerHTML = data.Email
-        localStorage.setItem("rest-profileInfo", JSON.stringify(data))
-      })
+      fetch(`/getaccount?app_id=${decodedText}`).then(response => response.json())
+        .then(data => {
+          document.querySelector("#profileTbl #firstname").innerHTML = data.First_Name
+          document.querySelector("#profileTbl #lastname").innerHTML = data.Last_Name
+          document.querySelector("#profileTbl #dob").innerHTML = data.DOB
+          document.querySelector("#profileTbl #inspire").innerHTML = data.Inspire
+          document.querySelector("#profileTbl #pap").innerHTML = (data.pap_device.trim() == "") ? "-" : data.pap_device
+          document.querySelector("#profileTbl #email").innerHTML = data.Email
+          localStorage.setItem("rest-profileInfo", JSON.stringify(data))
+        })
 
       // document.querySelectorAll("#qr-reader__dashboard_section_csr button")[1].click()
       // html5QrcodeScanner.stop().then((ignore) => {
@@ -202,8 +206,9 @@ function addCamera() {
   function onScanFailure(error) {
     // handle scan failure, usually better to ignore and keep scanning
     //document.getElementById("activatedErrorBtn").click()
-   // console.warn(`QR error = ${error}`);
+    // console.warn(`QR error = ${error}`);
   }
+
 
 }
 
